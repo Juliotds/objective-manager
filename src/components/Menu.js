@@ -1,10 +1,12 @@
 import React from "react";
 
-const Menu = () => {
+const Menu = ({ openModal, closeModal }) => {
   return (
     <div className='menu'>
-      <div className='btn btn-success'>Add New</div>
-      <div className='btn btn-dark' htmlFor='card_modal'>
+      <div className='btn btn-success' onClick={openModal}>
+        Add New
+      </div>
+      <div className='btn btn-dark' onClick={closeModal}>
         Save
       </div>
     </div>

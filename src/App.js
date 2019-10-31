@@ -1,8 +1,9 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Navbar from "./components/Navbar";
 import Board from "./components/Board";
 import Menu from "./components/Menu";
 import EditCardModal from "./components/EditCardModal";
+import EditCard from "./components/EditCard";
 
 function App() {
   const tasks = [
@@ -80,15 +81,24 @@ function App() {
       dependencies: [8]
     }
   ];
+  const [isOpen, setOpen] = useState(false);
+  const openModal = e => {
+    setOpen(true);
+  };
+  function closeModal() {
+    setOpen(false);
+  }
 
   return (
     <Fragment>
       <Navbar />
       <div className='container'>
         <Board tasks={tasks} />
-        <Menu />
+        <Menu openModal={openModal} closeModal={closeModal} />
       </div>
-      <EditCardModal />
+      <EditCardModal>
+        <EditCard isOpen={isOpen} closeModal={closeModal} />
+      </EditCardModal>
     </Fragment>
   );
 }
