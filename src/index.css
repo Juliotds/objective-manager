@@ -109,6 +109,13 @@ code {
   max-height: 800px;
 }
 
+/* Menu */
+.menu {
+  background-color: var(--light-color);
+  margin: 1rem 0rem;
+  padding: 1rem;
+}
+
 .btn {
   display: inline-block;
   background: var(--light-color);
@@ -188,4 +195,42 @@ code {
   background: #fff;
   color: #333;
   border: #ccc solid 1px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: all 0.2s 0.2s ease-in-out;
+  transition: all 0.2s 0.2s ease-in-out;
+}
+
+.modal-content {
+  padding: 10px;
+  max-width: 600px;
+  min-width: 360px;
+  max-height: 85%;
+  overflow: auto;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  z-index: 2;
+  opacity: 0;
+  border-radius: 3px;
+  background: #fff;
+  -webkit-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.modal-content p {
+  padding-top: 10px;
+  text-align: justify;
 }

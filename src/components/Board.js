@@ -3,9 +3,14 @@ import CardColumn from "./CardColumn";
 
 const Board = ({ tasks }) => {
   let tasksWithReference = tasks.map(task => {
-    task.dependencies = task.dependencies.map(dependency => {
-      return tasks[dependency - 1];
-    });
+    task.dependencies = task.dependencies.reduce((filtered, dependency) => {
+      if (tasks[dependency - 1]) {
+        filtered.push(tasks[dependency - 1]);
+      } else {
+        //TODO: Show Alert
+      }
+      return filtered;
+    }, []);
     return task;
   });
   let taskColumn = [];

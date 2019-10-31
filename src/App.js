@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import Navbar from "./components/Navbar";
 import Board from "./components/Board";
 import Menu from "./components/Menu";
+import EditCardModal from "./components/EditCardModal";
 
 function App() {
   const tasks = [
@@ -87,6 +88,7 @@ function App() {
         <Board tasks={tasks} />
         <Menu />
       </div>
+      <EditCardModal />
     </Fragment>
   );
 }
