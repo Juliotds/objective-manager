@@ -1,44 +1,55 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CardColumn from "./CardColumn";
 
-const Board = ({ tasks }) => {
-  let tasksWithReference = tasks.map(task => {
-    task.dependencies = task.dependencies.reduce((filtered, dependency) => {
-      if (tasks[dependency - 1]) {
-        filtered.push(tasks[dependency - 1]);
-      } else {
-        //TODO: Show Alert
-      }
-      return filtered;
-    }, []);
-    return task;
-  });
+const Board = ({ tasks, editModal }) => {
   let taskColumn = [];
-  for (let i = 0; tasksWithReference.length > 0; i++) {
-    taskColumn.push(
-      tasksWithReference.filter(task => {
-        if (i > 0) {
-          return getMaxDepth(task) - 1 === i;
+  const onRefTasks = () => {
+    let tasksCopy = [...tasks];
+    taskColumn = [];
+    let tasksWithReference = tasksCopy.map(task => {
+      task.dependencies = task.dependencies.reduce((filtered, dependency) => {
+        if (dependency !== null && typeof dependency === "object") {
+          filtered.push(dependency);
         } else {
-          return task.dependencies.length === 0;
+          if (tasksCopy[dependency - 1]) {
+            filtered.push(tasksCopy[dependency - 1]);
+          } else {
+            //TODO: Show Alert
+          }
         }
-      })
-    );
-    tasksWithReference = tasksWithReference.filter(task => {
-      for (let j = 0; j <= i; j++) {
-        if (taskColumn[j].includes(task)) {
-          return false;
-        }
-      }
-      return true;
+        return filtered;
+      }, []);
+      return task;
     });
-    console.log(tasksWithReference);
-  }
+    for (let i = 0; tasksWithReference.length > 0; i++) {
+      taskColumn.push(
+        tasksWithReference.filter(task => {
+          if (i > 0) {
+            return getMaxDepth(task) - 1 === i;
+          } else {
+            return task.dependencies.length === 0;
+          }
+        })
+      );
+      tasksWithReference = tasksWithReference.filter(task => {
+        for (let j = 0; j <= i; j++) {
+          if (taskColumn[j].includes(task)) {
+            return false;
+          }
+        }
+        return true;
+      });
+    }
+  };
+  onRefTasks();
+  useEffect(() => {
+    onRefTasks();
+  }, [tasks]);
 
   return (
     <div className='board'>
       {taskColumn.map((column, i) => {
-        return <CardColumn key={i} tasks={column} />;
+        return <CardColumn key={i} tasks={column} editModal={editModal} />;
       })}
     </div>
   );
@@ -51,7 +62,6 @@ const getMaxDepth = task => {
     n = 1;
     n = n + getMaxDepth(taskList[i]);
   }
-  console.log("depth: " + n);
   return n;
 };
 

@@ -6,7 +6,7 @@ import EditCardModal from "./components/EditCardModal";
 import EditCard from "./components/EditCard";
 
 function App() {
-  const tasks = [
+  const [tasks, setTasks] = useState([
     {
       id: 1,
       title: "task1",
@@ -80,24 +80,51 @@ function App() {
       priority: 10,
       dependencies: [8]
     }
-  ];
+  ]);
   const [isOpen, setOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState({});
+  const [editDependency, setEditDependency] = useState(false);
+
+  const editModal = (id, e) => {
+    e.preventDefault();
+    setOpen(true);
+    let select = tasks.find(task => task.id === id);
+    setSelectedTask(select);
+  };
+
   const openModal = e => {
     setOpen(true);
   };
-  function closeModal() {
+  function closeModal(bResetSelectedTask) {
     setOpen(false);
+    if (bResetSelectedTask) setSelectedTask({});
   }
+
+  const onEditDependency = bEnable => {
+    if (bEnable) {
+      setEditDependency(bEnable);
+    } else {
+      setEditDependency(false);
+    }
+  };
+  const onAddNewTask = obj => {
+    setTasks([...tasks, obj]);
+  };
 
   return (
     <Fragment>
       <Navbar />
       <div className='container'>
-        <Board tasks={tasks} />
+        <Board tasks={tasks} editModal={editModal} />
         <Menu openModal={openModal} closeModal={closeModal} />
       </div>
       <EditCardModal>
-        <EditCard isOpen={isOpen} closeModal={closeModal} />
+        <EditCard
+          isOpen={isOpen}
+          closeModal={closeModal}
+          onEditDependency={onEditDependency}
+          onAddNewTask={onAddNewTask}
+        />
       </EditCardModal>
     </Fragment>
   );
