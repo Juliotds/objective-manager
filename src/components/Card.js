@@ -1,20 +1,18 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 
 const Card = ({
   task,
   editModal,
   editDependency,
   onAddNewDependency,
-  onRemoveDependency
+  onRemoveDependency,
+  highlight
 }) => {
-  const [highlight, setHighlight] = useState(false);
   const showAsDependency = e => {
     if (highlight) {
       onRemoveDependency.bind(null, task.id)();
-      setHighlight(false);
     } else {
       onAddNewDependency.bind(null, task.id)();
-      setHighlight(true);
     }
   };
 

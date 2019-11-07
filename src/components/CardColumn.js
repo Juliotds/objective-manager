@@ -6,11 +6,13 @@ const CardColumn = ({
   editModal,
   editDependency,
   onAddNewDependency,
-  onRemoveDependency
+  onRemoveDependency,
+  selectedDependencies
 }) => {
   return (
     <div className='card-column'>
       {tasks.map((task, i) => {
+        const highlight = selectedDependencies.includes(task.id);
         return (
           <Card
             key={i}
@@ -19,6 +21,7 @@ const CardColumn = ({
             editDependency={editDependency}
             onAddNewDependency={onAddNewDependency}
             onRemoveDependency={onRemoveDependency}
+            highlight={highlight}
           />
         );
       })}

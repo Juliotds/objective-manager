@@ -6,7 +6,8 @@ const Board = ({
   editModal,
   editDependency,
   onAddNewDependency,
-  onRemoveDependency
+  onRemoveDependency,
+  selectedDependencies
 }) => {
   let taskColumn = [];
   const onRefTasks = () => {
@@ -63,6 +64,7 @@ const Board = ({
             editDependency={editDependency}
             onAddNewDependency={onAddNewDependency}
             onRemoveDependency={onRemoveDependency}
+            selectedDependencies={selectedDependencies}
           />
         );
       })}

@@ -84,6 +84,10 @@ function App() {
   const [isOpen, setOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState({});
   const [editDependency, setEditDependency] = useState(false);
+  const [
+    initialSelectedDependencies,
+    setInitialSelectedDependencies
+  ] = useState([]);
   const [selectedDependencies, setSelectedDependencies] = useState([]);
   const [saveDependencies, setSaveDependencies] = useState(false);
 
@@ -99,13 +103,18 @@ function App() {
   };
   function closeModal(bResetSelectedTask) {
     setOpen(false);
-    if (bResetSelectedTask) setSelectedTask({});
+    if (bResetSelectedTask) {
+      setSelectedTask({});
+      setInitialSelectedDependencies([]);
+      setSelectedDependencies([]);
+    }
     setSaveDependencies(false);
   }
 
-  const onEditDependency = bEnable => {
+  const onEditDependency = (bEnable, dependencies) => {
     if (bEnable) {
       setEditDependency(bEnable);
+      setInitialSelectedDependencies([...dependencies]);
     } else {
       setEditDependency(false);
     }
@@ -121,7 +130,7 @@ function App() {
   };
 
   const onCancelDependency = () => {
-    setSelectedDependencies([]);
+    setSelectedDependencies([...initialSelectedDependencies]);
     setOpen(true);
     setEditDependency(false);
     setSaveDependencies(false);
@@ -150,6 +159,7 @@ function App() {
           editDependency={editDependency}
           onAddNewDependency={onAddNewDependency}
           onRemoveDependency={onRemoveDependency}
+          selectedDependencies={selectedDependencies}
         />
         <Menu
           openModal={openModal}

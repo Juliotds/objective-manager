@@ -95,11 +95,11 @@ const EditCard = ({
       time: 0,
       dependencies: []
     });
-    closeModal();
+    closeModal(true);
   };
 
   const onEnableEditDependency = e => {
-    onEditDependency(true);
+    onEditDependency(true, task.dependencies);
     closeModal();
   };
 
