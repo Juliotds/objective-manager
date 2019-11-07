@@ -51,6 +51,10 @@ code {
   position: relative;
 }
 
+.card.active {
+  background-color: #28a745 !important;
+}
+
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;

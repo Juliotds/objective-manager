@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const EditCard = ({ isOpen, closeModal, onEditDependency, onAddNewTask }) => {
+const EditCard = ({
+  isOpen,
+  closeModal,
+  onEditDependency,
+  onAddNewTask,
+  selectedDependencies
+}) => {
   const [task, setTask] = useState({
     title: "",
     content: "",
@@ -58,9 +64,7 @@ const EditCard = ({ isOpen, closeModal, onEditDependency, onAddNewTask }) => {
     return bValidForm;
   };
   const onSave = e => {
-    //TODO: validação
     if (onFormValidation(e.target.name)) {
-      //TODO: salvar no estado do APP
       onAddNewTask(task);
 
       setTask({
@@ -98,6 +102,12 @@ const EditCard = ({ isOpen, closeModal, onEditDependency, onAddNewTask }) => {
     onEditDependency(true);
     closeModal();
   };
+
+  useEffect(() => {
+    if (selectedDependencies) {
+      setTask({ ...task, dependencies: selectedDependencies });
+    }
+  }, [selectedDependencies]);
 
   return (
     <React.Fragment>
@@ -146,13 +156,13 @@ const EditCard = ({ isOpen, closeModal, onEditDependency, onAddNewTask }) => {
               value={task.time}
             />
             <br />
-            <span>Dependencies:</span>
+            <span>Dependency IDs:</span>
             <span>
               {task.dependencies.map((dependency, i) => {
                 if (i === 0) {
-                  return dependency.toString;
+                  return dependency.toString();
                 } else {
-                  return ", " + dependency.toString;
+                  return ", " + dependency.toString();
                 }
               })}
             </span>

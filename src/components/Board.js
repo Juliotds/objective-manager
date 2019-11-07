@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import CardColumn from "./CardColumn";
 
-const Board = ({ tasks, editModal }) => {
+const Board = ({
+  tasks,
+  editModal,
+  editDependency,
+  onAddNewDependency,
+  onRemoveDependency
+}) => {
   let taskColumn = [];
   const onRefTasks = () => {
     let tasksCopy = [...tasks];
@@ -49,7 +55,16 @@ const Board = ({ tasks, editModal }) => {
   return (
     <div className='board'>
       {taskColumn.map((column, i) => {
-        return <CardColumn key={i} tasks={column} editModal={editModal} />;
+        return (
+          <CardColumn
+            key={i}
+            tasks={column}
+            editModal={editModal}
+            editDependency={editDependency}
+            onAddNewDependency={onAddNewDependency}
+            onRemoveDependency={onRemoveDependency}
+          />
+        );
       })}
     </div>
   );

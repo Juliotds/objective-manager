@@ -84,6 +84,8 @@ function App() {
   const [isOpen, setOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState({});
   const [editDependency, setEditDependency] = useState(false);
+  const [selectedDependencies, setSelectedDependencies] = useState([]);
+  const [saveDependencies, setSaveDependencies] = useState(false);
 
   const editModal = (id, e) => {
     e.preventDefault();
@@ -98,6 +100,7 @@ function App() {
   function closeModal(bResetSelectedTask) {
     setOpen(false);
     if (bResetSelectedTask) setSelectedTask({});
+    setSaveDependencies(false);
   }
 
   const onEditDependency = bEnable => {
@@ -111,12 +114,50 @@ function App() {
     setTasks([...tasks, obj]);
   };
 
+  const onSaveDependency = () => {
+    setOpen(true);
+    setEditDependency(false);
+    setSaveDependencies(true);
+  };
+
+  const onCancelDependency = () => {
+    setSelectedDependencies([]);
+    setOpen(true);
+    setEditDependency(false);
+    setSaveDependencies(false);
+  };
+
+  const onAddNewDependency = (id, e) => {
+    setSelectedDependencies([...selectedDependencies, id]);
+  };
+
+  const onRemoveDependency = (id, e) => {
+    let arrayCopy = [...selectedDependencies];
+    const index = arrayCopy.indexOf(id);
+    if (index !== -1) {
+      arrayCopy.splice(index, 1);
+      setSelectedDependencies([...arrayCopy]);
+    }
+  };
+
   return (
     <Fragment>
       <Navbar />
       <div className='container'>
-        <Board tasks={tasks} editModal={editModal} />
-        <Menu openModal={openModal} closeModal={closeModal} />
+        <Board
+          tasks={tasks}
+          editModal={editModal}
+          editDependency={editDependency}
+          onAddNewDependency={onAddNewDependency}
+          onRemoveDependency={onRemoveDependency}
+        />
+        <Menu
+          openModal={openModal}
+          closeModal={closeModal}
+          editDependency={editDependency}
+          onSaveDependency={onSaveDependency}
+          onCancelDependency={onCancelDependency}
+        />
       </div>
       <EditCardModal>
         <EditCard
@@ -124,6 +165,9 @@ function App() {
           closeModal={closeModal}
           onEditDependency={onEditDependency}
           onAddNewTask={onAddNewTask}
+          selectedDependencies={
+            saveDependencies ? selectedDependencies : undefined
+          }
         />
       </EditCardModal>
     </Fragment>
