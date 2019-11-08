@@ -5,7 +5,8 @@ const EditCard = ({
   closeModal,
   onEditDependency,
   onAddNewTask,
-  selectedDependencies
+  selectedDependencies,
+  selectedTask
 }) => {
   const [task, setTask] = useState({
     title: "",
@@ -64,7 +65,7 @@ const EditCard = ({
     return bValidForm;
   };
   const onSave = e => {
-    if (onFormValidation(e.target.name)) {
+    if (onFormValidation()) {
       onAddNewTask(task);
 
       setTask({
@@ -81,8 +82,9 @@ const EditCard = ({
       setValidDependencies(false);
       onEditDependency(false);
 
-      closeModal();
+      closeModal(true);
     } else {
+      console.log(e.target);
       //TODO: error message
     }
   };
@@ -99,7 +101,7 @@ const EditCard = ({
   };
 
   const onEnableEditDependency = e => {
-    onEditDependency(true, task.dependencies);
+    onEditDependency(true, task);
     closeModal();
   };
 
@@ -108,6 +110,22 @@ const EditCard = ({
       setTask({ ...task, dependencies: selectedDependencies });
     }
   }, [selectedDependencies]);
+
+  useEffect(() => {
+    if (
+      !(
+        Object.keys(selectedTask).length === 0 &&
+        selectedTask.constructor === Object
+      )
+    ) {
+      setTask(selectedTask);
+      setValidTitle(true);
+      setValidContent(true);
+      setValidPriority(true);
+      setValidTime(true);
+      setValidDependencies(true);
+    }
+  }, [selectedTask]);
 
   return (
     <React.Fragment>
@@ -159,10 +177,12 @@ const EditCard = ({
             <span>Dependency IDs:</span>
             <span>
               {task.dependencies.map((dependency, i) => {
-                if (i === 0) {
-                  return dependency.toString();
-                } else {
-                  return ", " + dependency.toString();
+                if (dependency) {
+                  if (i === 0) {
+                    return dependency.id.toString();
+                  } else {
+                    return ", " + dependency.id.toString();
+                  }
                 }
               })}
             </span>

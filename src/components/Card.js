@@ -10,20 +10,16 @@ const Card = ({
 }) => {
   const showAsDependency = e => {
     if (highlight) {
-      onRemoveDependency.bind(null, task.id)();
+      onRemoveDependency.bind(null, task)();
     } else {
-      onAddNewDependency.bind(null, task.id)();
+      onAddNewDependency.bind(null, task)();
     }
   };
 
   return (
     <Fragment>
       {!editDependency && (
-        <div
-          className='card'
-          id={task.id}
-          onClick={editModal.bind(null, task.id)}
-        >
+        <div className='card' id={task.id} onClick={editModal.bind(null, task)}>
           <h4>{task.title}</h4>
           <span className='duration badge badge-danger'>{task.time}h</span>
         </div>

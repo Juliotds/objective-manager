@@ -91,11 +91,10 @@ function App() {
   const [selectedDependencies, setSelectedDependencies] = useState([]);
   const [saveDependencies, setSaveDependencies] = useState(false);
 
-  const editModal = (id, e) => {
+  const editModal = (objTask, e) => {
     e.preventDefault();
     setOpen(true);
-    let select = tasks.find(task => task.id === id);
-    setSelectedTask(select);
+    setSelectedTask(objTask);
   };
 
   const openModal = e => {
@@ -111,16 +110,26 @@ function App() {
     setSaveDependencies(false);
   }
 
-  const onEditDependency = (bEnable, dependencies) => {
+  const onEditDependency = (bEnable, objTask) => {
     if (bEnable) {
+      setSelectedTask(objTask);
       setEditDependency(bEnable);
-      setInitialSelectedDependencies([...dependencies]);
+      setInitialSelectedDependencies([...objTask.dependencies]);
+      setSelectedDependencies([...objTask.dependencies]);
     } else {
       setEditDependency(false);
     }
   };
   const onAddNewTask = obj => {
-    setTasks([...tasks, obj]);
+    const bTaskExists = tasks.map(task => task.id).includes(obj.id);
+    if (bTaskExists) {
+      const newArray = tasks.filter(task => {
+        return task.id !== obj.id;
+      });
+      setTasks([...newArray, obj]);
+    } else {
+      setTasks([...tasks, obj]);
+    }
   };
 
   const onSaveDependency = () => {
@@ -136,17 +145,40 @@ function App() {
     setSaveDependencies(false);
   };
 
-  const onAddNewDependency = (id, e) => {
-    setSelectedDependencies([...selectedDependencies, id]);
+  const onAddNewDependency = (objDependency, e) => {
+    const bIncludesInDependency = findInDependencies(
+      objDependency,
+      selectedTask.id
+    );
+    if (!bIncludesInDependency) {
+      setSelectedDependencies([...selectedDependencies, objDependency]);
+    }
   };
 
-  const onRemoveDependency = (id, e) => {
+  const onRemoveDependency = (objDependency, e) => {
     let arrayCopy = [...selectedDependencies];
-    const index = arrayCopy.indexOf(id);
+    const index = arrayCopy.indexOf(objDependency);
     if (index !== -1) {
       arrayCopy.splice(index, 1);
       setSelectedDependencies([...arrayCopy]);
     }
+  };
+
+  const findInDependencies = (objTask, id) => {
+    if (!objTask) {
+      return false;
+    }
+    if (objTask.id === id) {
+      return true;
+    }
+    console.log(objTask, id);
+    let bIdFound = false;
+    for (let dependency in objTask.dependencies) {
+      bIdFound =
+        findInDependencies(objTask.dependencies[dependency], id) || bIdFound;
+    }
+    console.log(bIdFound);
+    return bIdFound;
   };
 
   return (
@@ -178,6 +210,7 @@ function App() {
           selectedDependencies={
             saveDependencies ? selectedDependencies : undefined
           }
+          selectedTask={selectedTask ? selectedTask : undefined}
         />
       </EditCardModal>
     </Fragment>
