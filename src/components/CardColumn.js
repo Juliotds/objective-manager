@@ -12,7 +12,7 @@ const CardColumn = ({
   return (
     <div className='card-column'>
       {tasks.map((task, i) => {
-        const highlight = selectedDependencies.includes(task);
+        const highlight = selectedDependencies.includes(task.id);
         return (
           <Card
             key={i}

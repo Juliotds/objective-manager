@@ -10,7 +10,7 @@ const Card = ({
 }) => {
   const showAsDependency = e => {
     if (highlight) {
-      onRemoveDependency.bind(null, task)();
+      onRemoveDependency.bind(null, task.id)();
     } else {
       onAddNewDependency.bind(null, task)();
     }

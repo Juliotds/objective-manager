@@ -5,6 +5,7 @@ const EditCard = ({
   closeModal,
   onEditDependency,
   onAddNewTask,
+  onDeleteTask,
   selectedDependencies,
   selectedTask
 }) => {
@@ -19,7 +20,6 @@ const EditCard = ({
   const [validContent, setValidContent] = useState(false);
   const [validPriority, setValidPriority] = useState(false);
   const [validTime, setValidTime] = useState(false);
-  const [validDependencies, setValidDependencies] = useState(true);
 
   const onChange = e => {
     const key = e.target.name;
@@ -49,24 +49,15 @@ const EditCard = ({
         bValid = value > 0;
         setValidTime(bValid);
         break;
-      case "dependencies":
-        bValid = value !== null && typeof value === "object";
-        setValidDependencies(bValid);
-        break;
       default:
         break;
     }
-    const bValidForm =
-      validTitle &&
-      validContent &&
-      validPriority &&
-      validTime &&
-      validDependencies;
+    const bValidForm = validTitle && validContent && validPriority && validTime;
     return bValidForm;
   };
-  const onSave = e => {
+  const onSave = async e => {
     if (onFormValidation()) {
-      onAddNewTask(task);
+      await onAddNewTask(task);
 
       setTask({
         title: "",
@@ -79,7 +70,6 @@ const EditCard = ({
       setValidContent(false);
       setValidPriority(false);
       setValidTime(false);
-      setValidDependencies(false);
       onEditDependency(false);
 
       closeModal(true);
@@ -87,6 +77,25 @@ const EditCard = ({
       console.log(e.target);
       //TODO: error message
     }
+  };
+
+  const onDelete = async e => {
+    await onDeleteTask(task);
+
+    setTask({
+      title: "",
+      content: "",
+      priority: 0,
+      time: 0,
+      dependencies: []
+    });
+    setValidTitle(false);
+    setValidContent(false);
+    setValidPriority(false);
+    setValidTime(false);
+    onEditDependency(false);
+
+    closeModal(true);
   };
   const onCancel = e => {
     onEditDependency(false);
@@ -102,6 +111,22 @@ const EditCard = ({
 
   const onEnableEditDependency = e => {
     onEditDependency(true, task);
+    closeModal();
+  };
+
+  const onCloseModal = e => {
+    setTask({
+      title: "",
+      content: "",
+      priority: 0,
+      time: 0,
+      dependencies: []
+    });
+    setValidTitle(false);
+    setValidContent(false);
+    setValidPriority(false);
+    setValidTime(false);
+    onEditDependency(false);
     closeModal();
   };
 
@@ -123,14 +148,13 @@ const EditCard = ({
       setValidContent(true);
       setValidPriority(true);
       setValidTime(true);
-      setValidDependencies(true);
     }
   }, [selectedTask]);
 
   return (
     <React.Fragment>
       {isOpen && (
-        <div className='modal' onClick={closeModal}>
+        <div className='modal' onClick={onCloseModal}>
           <div
             className='modal-content'
             onClick={e => {
@@ -177,11 +201,17 @@ const EditCard = ({
             <span>Dependency IDs:</span>
             <span>
               {task.dependencies.map((dependency, i) => {
-                if (dependency) {
+                if (dependency !== null && typeof dependency === "object") {
                   if (i === 0) {
                     return dependency.id.toString();
                   } else {
                     return ", " + dependency.id.toString();
+                  }
+                } else {
+                  if (i === 0) {
+                    return dependency.toString();
+                  } else {
+                    return ", " + dependency.toString();
                   }
                 }
               })}
@@ -195,6 +225,9 @@ const EditCard = ({
             </div>
             <div className='btn btn-dark' onClick={onCancel}>
               Cancel
+            </div>
+            <div className='btn btn-danger' onClick={onDelete}>
+              Delete
             </div>
           </div>
         </div>

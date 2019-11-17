@@ -18,11 +18,12 @@ const Board = ({
         if (dependency !== null && typeof dependency === "object") {
           filtered.push(dependency);
         } else {
-          if (tasksCopy[dependency - 1]) {
-            filtered.push(tasksCopy[dependency - 1]);
-          } else {
-            //TODO: Show Alert
-          }
+          filtered = tasks.reduce((taskArray, task) => {
+            if (task.id === dependency) {
+              taskArray.push(task);
+            }
+            return taskArray;
+          }, []);
         }
         return filtered;
       }, []);

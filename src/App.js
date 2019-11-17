@@ -1,86 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Board from "./components/Board";
 import Menu from "./components/Menu";
 import EditCardModal from "./components/EditCardModal";
 import EditCard from "./components/EditCard";
+import firebase from "./Firestore";
 
 function App() {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "task1",
-      time: 30,
-      content:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae reprehenderit harum nisi, blanditiis labore voluptate minus hic quia esse, ullam et id molestiae quae officia incidunt aliquid quidem nesciunt fugiat.",
-      priority: 0,
-      dependencies: []
-    },
-    {
-      id: 2,
-      title: "task2",
-      time: 40,
-      content: "links e comentários sobre o task 2",
-      priority: 2,
-      dependencies: []
-    },
-    {
-      id: 3,
-      title: "task3",
-      time: 20,
-      content: "links e comentários sobre o task 3",
-      priority: 3,
-      dependencies: []
-    },
-    {
-      id: 4,
-      title: "supertask 1",
-      time: 10,
-      content: "links e comentários sobre o supertask 1",
-      priority: 1,
-      dependencies: [1]
-    },
-    {
-      id: 5,
-      title: "supertask 2",
-      time: 60,
-      content: "links e comentários sobre o supertask 2",
-      priority: 2,
-      dependencies: [2]
-    },
-    {
-      id: 6,
-      title: "supertask 3",
-      time: 80,
-      content: "links e comentários sobre o supertask 3",
-      priority: 10,
-      dependencies: [3, 4]
-    },
-    {
-      id: 7,
-      title: "supertask 3",
-      time: 80,
-      content: "links e comentários sobre o supertask 3",
-      priority: 10,
-      dependencies: [6]
-    },
-    {
-      id: 8,
-      title: "supertask 3",
-      time: 80,
-      content: "links e comentários sobre o supertask 3",
-      priority: 10,
-      dependencies: [7]
-    },
-    {
-      id: 9,
-      title: "supertask 3",
-      time: 80,
-      content: "links e comentários sobre o supertask 3",
-      priority: 10,
-      dependencies: [8]
-    }
-  ]);
+  const [tasks, setTasks] = useState([]);
+  const [program, setProgram] = useState("Gsqs8V3DijJL03kZBeDK");
   const [isOpen, setOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState({});
   const [editDependency, setEditDependency] = useState(false);
@@ -90,6 +18,17 @@ function App() {
   ] = useState([]);
   const [selectedDependencies, setSelectedDependencies] = useState([]);
   const [saveDependencies, setSaveDependencies] = useState(false);
+
+  // read data from database
+  const db = firebase.firestore();
+  useEffect(() => {
+    db.collection("program")
+      .doc(program)
+      .onSnapshot(docSnapshot => {
+        let objectives = docSnapshot.data().objectives;
+        setTasks(objectives);
+      });
+  }, []);
 
   const editModal = (objTask, e) => {
     e.preventDefault();
@@ -114,21 +53,103 @@ function App() {
     if (bEnable) {
       setSelectedTask(objTask);
       setEditDependency(bEnable);
-      setInitialSelectedDependencies([...objTask.dependencies]);
-      setSelectedDependencies([...objTask.dependencies]);
+      setInitialSelectedDependencies([
+        ...objTask.dependencies.map(dependency => {
+          if (dependency !== null && typeof dependency === "object") {
+            return dependency.id;
+          } else {
+            return dependency;
+          }
+        })
+      ]);
+      setSelectedDependencies([
+        ...objTask.dependencies.map(dependency => {
+          if (dependency !== null && typeof dependency === "object") {
+            return dependency.id;
+          } else {
+            return dependency;
+          }
+        })
+      ]);
     } else {
       setEditDependency(false);
     }
   };
   const onAddNewTask = obj => {
+    if (!obj.id) {
+      obj["id"] = tasks.reduce((maxId, task) => {
+        if (maxId <= task.id) {
+          maxId = task.id + 1;
+        }
+        return maxId;
+      }, 1);
+    }
     const bTaskExists = tasks.map(task => task.id).includes(obj.id);
     if (bTaskExists) {
-      const newArray = tasks.filter(task => {
-        return task.id !== obj.id;
-      });
-      setTasks([...newArray, obj]);
+      const newArray = tasks.reduce((filtered, task) => {
+        if (task.dependencies.length > 0) {
+          task.dependencies = task.dependencies.map(dependency => {
+            if (dependency !== null && typeof dependency === "object") {
+              return dependency.id;
+            } else {
+              return dependency;
+            }
+          });
+        }
+        if (task.id !== obj.id) {
+          filtered.push(task);
+        }
+        return filtered;
+      }, []);
+      db.collection("program")
+        .doc(program)
+        .update({ objectives: [...newArray, obj] })
+        .then(() => {
+          console.log("update!");
+        })
+        .catch(err => {
+          console.log(err);
+        });
     } else {
-      setTasks([...tasks, obj]);
+      db.collection("program")
+        .doc(program)
+        .update({ objectives: firebase.firestore.FieldValue.arrayUnion(obj) })
+        .then(() => {
+          console.log("update!");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  };
+
+  const onDeleteTask = obj => {
+    const bTaskExists = tasks.map(task => task.id).includes(obj.id);
+    if (bTaskExists) {
+      const newArray = tasks.reduce((filtered, task) => {
+        if (task.dependencies.length > 0) {
+          task.dependencies = task.dependencies.map(dependency => {
+            if (dependency !== null && typeof dependency === "object") {
+              return dependency.id;
+            } else {
+              return dependency;
+            }
+          });
+        }
+        if (task.id !== obj.id) {
+          filtered.push(task);
+        }
+        return filtered;
+      }, []);
+      db.collection("program")
+        .doc(program)
+        .update({ objectives: [...newArray] })
+        .then(() => {
+          console.log("update!");
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   };
 
@@ -151,13 +172,13 @@ function App() {
       selectedTask.id
     );
     if (!bIncludesInDependency) {
-      setSelectedDependencies([...selectedDependencies, objDependency]);
+      setSelectedDependencies([...selectedDependencies, objDependency.id]);
     }
   };
 
-  const onRemoveDependency = (objDependency, e) => {
+  const onRemoveDependency = (idDependency, e) => {
     let arrayCopy = [...selectedDependencies];
-    const index = arrayCopy.indexOf(objDependency);
+    const index = arrayCopy.indexOf(idDependency);
     if (index !== -1) {
       arrayCopy.splice(index, 1);
       setSelectedDependencies([...arrayCopy]);
@@ -165,6 +186,7 @@ function App() {
   };
 
   const findInDependencies = (objTask, id) => {
+    console.log(objTask, id);
     if (!objTask) {
       return false;
     }
@@ -177,7 +199,6 @@ function App() {
       bIdFound =
         findInDependencies(objTask.dependencies[dependency], id) || bIdFound;
     }
-    console.log(bIdFound);
     return bIdFound;
   };
 
@@ -207,6 +228,7 @@ function App() {
           closeModal={closeModal}
           onEditDependency={onEditDependency}
           onAddNewTask={onAddNewTask}
+          onDeleteTask={onDeleteTask}
           selectedDependencies={
             saveDependencies ? selectedDependencies : undefined
           }
