@@ -25,8 +25,14 @@ function App() {
     db.collection("program")
       .doc(program)
       .onSnapshot(docSnapshot => {
-        let objectives = docSnapshot.data().objectives;
-        setTasks(objectives);
+        let tasksArray = [];
+        if (!docSnapshot.empty) {
+          let objectives = docSnapshot.data().objectives || {};
+          if (Object.keys(objectives).length > 0) {
+            tasksArray = Object.keys(objectives).map(key => objectives[key]);
+          }
+        }
+        setTasks(tasksArray);
       });
   }, []);
 
@@ -101,9 +107,14 @@ function App() {
         }
         return filtered;
       }, []);
+      newArray.push(obj);
+      let objectivesObj = {};
+      for (let i = 0; i < newArray.length; i++) {
+        Object.assign(objectivesObj, { [newArray[i].id]: newArray[i] });
+      }
       db.collection("program")
         .doc(program)
-        .update({ objectives: [...newArray, obj] })
+        .set({ objectives: objectivesObj }, { merge: true })
         .then(() => {
           console.log("update!");
         })
@@ -113,7 +124,7 @@ function App() {
     } else {
       db.collection("program")
         .doc(program)
-        .update({ objectives: firebase.firestore.FieldValue.arrayUnion(obj) })
+        .set({ [`objectives`]: { [obj.id]: obj } }, { merge: true })
         .then(() => {
           console.log("update!");
         })
@@ -143,7 +154,12 @@ function App() {
       }, []);
       db.collection("program")
         .doc(program)
-        .update({ objectives: [...newArray] })
+        .set(
+          {
+            [`objectives`]: { [obj.id]: firebase.firestore.FieldValue.delete() }
+          },
+          { merge: true }
+        )
         .then(() => {
           console.log("update!");
         })
