@@ -4,6 +4,10 @@ import Board from "./components/Board";
 import Menu from "./components/Menu";
 import EditCardModal from "./components/EditCardModal";
 import EditCard from "./components/EditCard";
+import LoginModal from "./components/LoginModal";
+import LoginForm from "./components/LoginForm";
+import SignUpModal from "./components/SignUpModal";
+import SignUpForm from "./components/SignUpForm";
 import firebase from "./Firestore";
 
 function App() {
@@ -18,6 +22,8 @@ function App() {
   ] = useState([]);
   const [selectedDependencies, setSelectedDependencies] = useState([]);
   const [saveDependencies, setSaveDependencies] = useState(false);
+  const [isLoginModalOpen, setLoginModalOpen] = useState(false);
+  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
 
   // read data from database
   const db = firebase.firestore();
@@ -218,9 +224,28 @@ function App() {
     return bIdFound;
   };
 
+  const openLoginModal = () => {
+    setLoginModalOpen(true);
+  };
+
+  const closeLoginModal = () => {
+    setLoginModalOpen(false);
+  };
+
+  const openSignUpModal = () => {
+    setSignUpModalOpen(true);
+  };
+
+  const closeSignUpModal = () => {
+    setSignUpModalOpen(false);
+  };
+
   return (
     <Fragment>
-      <Navbar />
+      <Navbar
+        openLoginModal={openLoginModal}
+        openSignUpModal={openSignUpModal}
+      />
       <div className='container'>
         <Board
           tasks={tasks}
@@ -251,6 +276,18 @@ function App() {
           selectedTask={selectedTask ? selectedTask : undefined}
         />
       </EditCardModal>
+      <LoginModal>
+        <LoginForm
+          isLoginModalOpen={isLoginModalOpen}
+          closeLoginModal={closeLoginModal}
+        />
+      </LoginModal>
+      <SignUpModal>
+        <SignUpForm
+          isSignUpModalOpen={isSignUpModalOpen}
+          closeSignUpModal={closeSignUpModal}
+        />
+      </SignUpModal>
     </Fragment>
   );
 }
