@@ -8,6 +8,8 @@ import LoginModal from "./components/LoginModal";
 import LoginForm from "./components/LoginForm";
 import SignUpModal from "./components/SignUpModal";
 import SignUpForm from "./components/SignUpForm";
+import WarningModal from "./components/WarningModal";
+import Warning from "./components/Warning";
 import firebase from "./Firestore";
 
 function App() {
@@ -22,11 +24,15 @@ function App() {
   ] = useState([]);
   const [selectedDependencies, setSelectedDependencies] = useState([]);
   const [saveDependencies, setSaveDependencies] = useState(false);
+  const [authUser, setAuthUser] = useState(null);
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
+  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
 
   // read data from database
   const db = firebase.firestore();
+  const auth = firebase.auth();
+
   useEffect(() => {
     db.collection("program")
       .doc(program)
@@ -40,6 +46,15 @@ function App() {
         }
         setTasks(tasksArray);
       });
+
+    auth.onAuthStateChanged(user => {
+      console.log(user);
+      if (user) {
+        setAuthUser(user);
+      } else {
+        setAuthUser(null);
+      }
+    });
   }, []);
 
   const editModal = (objTask, e) => {
@@ -228,6 +243,13 @@ function App() {
     setLoginModalOpen(true);
   };
 
+  const onLogin = async (email, password) => {
+    try {
+      const cred = await auth.signInWithEmailAndPassword(email, password);
+      console.log(cred);
+    } catch (error) {}
+  };
+
   const closeLoginModal = () => {
     setLoginModalOpen(false);
   };
@@ -236,8 +258,26 @@ function App() {
     setSignUpModalOpen(true);
   };
 
+  const onSignUp = async (email, password) => {
+    await auth.createUserWithEmailAndPassword(email, password);
+    setSignUpModalOpen(false);
+  };
+
   const closeSignUpModal = () => {
     setSignUpModalOpen(false);
+  };
+
+  const onLogOut = () => {
+    auth.signOut();
+    setLoginModalOpen(false);
+  };
+
+  const openWarningModal = () => {
+    setIsWarningModalOpen(true);
+  };
+
+  const closeWarningModal = () => {
+    setIsWarningModalOpen(false);
   };
 
   return (
@@ -245,6 +285,8 @@ function App() {
       <Navbar
         openLoginModal={openLoginModal}
         openSignUpModal={openSignUpModal}
+        onLogOut={onLogOut}
+        authUser={authUser}
       />
       <div className='container'>
         <Board
@@ -261,6 +303,8 @@ function App() {
           editDependency={editDependency}
           onSaveDependency={onSaveDependency}
           onCancelDependency={onCancelDependency}
+          openWarningModal={openWarningModal}
+          authUser={authUser}
         />
       </div>
       <EditCardModal>
@@ -280,14 +324,22 @@ function App() {
         <LoginForm
           isLoginModalOpen={isLoginModalOpen}
           closeLoginModal={closeLoginModal}
+          onLogin={onLogin}
         />
       </LoginModal>
       <SignUpModal>
         <SignUpForm
           isSignUpModalOpen={isSignUpModalOpen}
           closeSignUpModal={closeSignUpModal}
+          onSignUp={onSignUp}
         />
       </SignUpModal>
+      <WarningModal>
+        <Warning
+          isWarningModalOpen={isWarningModalOpen}
+          closeWarningModal={closeWarningModal}
+        />
+      </WarningModal>
     </Fragment>
   );
 }

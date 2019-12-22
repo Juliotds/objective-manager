@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal }) => {
+const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal, onSignUp }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -9,7 +9,7 @@ const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal }) => {
     closeSignUpModal();
   };
 
-  const submitSignIn = e => {
+  const submitSignIn = async e => {
     e.preventDefault();
     if (
       password.length > 5 &&
@@ -18,11 +18,11 @@ const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal }) => {
       ) !== null &&
       password === confirmPassword
     ) {
+      await onSignUp(username, password);
       setUsername("");
       setPassword("");
       setConfirmPassword("");
       setErrorMsg("");
-      closeSignUpModal();
     } else {
       setErrorMsg("Please, check your email and password again.");
     }
@@ -75,7 +75,7 @@ const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal }) => {
             >
               <input
                 className='input-login'
-                type='confirm-password'
+                type='password'
                 name='confirm-password'
                 value={confirmPassword}
                 onChange={e => {
@@ -89,7 +89,7 @@ const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal }) => {
 
             <div className='container-login-btn'>
               <button className='loginbtn' onClick={submitSignIn}>
-                Login
+                Sign Up
               </button>
             </div>
           </div>

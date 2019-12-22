@@ -5,8 +5,15 @@ const Menu = ({
   closeModal,
   editDependency,
   onSaveDependency,
-  onCancelDependency
+  onCancelDependency,
+  openWarningModal,
+  authUser
 }) => {
+  const onSaveButton = () => {
+    if (authUser !== null) {
+      openWarningModal();
+    }
+  };
   return (
     <div className='menu'>
       {!editDependency && (
@@ -14,7 +21,7 @@ const Menu = ({
           <div className='btn btn-success' onClick={openModal}>
             Add New
           </div>
-          <div className='btn btn-dark' onClick={closeModal}>
+          <div className='btn btn-dark' onClick={onSaveButton}>
             Save
           </div>{" "}
         </Fragment>

@@ -1,4 +1,6 @@
-import firebase from "firebase";
+import app from "firebase/app";
+import "firebase/firebase-firestore";
+import "firebase/auth";
 const devConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -7,6 +9,5 @@ const devConfig = {
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 };
-console.log(devConfig);
-firebase.initializeApp(devConfig);
+const firebase = app.initializeApp(devConfig);
 export default firebase;

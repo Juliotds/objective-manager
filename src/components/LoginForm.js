@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const LoginForm = ({ isLoginModalOpen, closeLoginModal }) => {
+const LoginForm = ({ isLoginModalOpen, closeLoginModal, onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -17,6 +17,7 @@ const LoginForm = ({ isLoginModalOpen, closeLoginModal }) => {
         /^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/
       ) !== null
     ) {
+      onLogin(username, password);
       setUsername("");
       setPassword("");
       setErrorMsg("");
@@ -65,35 +66,36 @@ const LoginForm = ({ isLoginModalOpen, closeLoginModal }) => {
               />
               <span className='focus-input'></span>
             </div>
+            {null && (
+              <div className='wrap-login-options'>
+                <div className='wrap-remember-me'>
+                  <input
+                    className='input-remember-me'
+                    id='remember-me-checkbox'
+                    type='checkbox'
+                    name='remember-me'
+                    onChange={e => {
+                      setRememberMe(!rememberMe);
+                    }}
+                  />
+                  <label
+                    className='remember-me'
+                    htmlFor='remember-me-checkbox'
+                    onClick={e => {
+                      setRememberMe(!rememberMe);
+                    }}
+                  >
+                    Remember me
+                  </label>
+                </div>
 
-            <div className='wrap-login-options'>
-              <div className='wrap-remember-me'>
-                <input
-                  className='input-remember-me'
-                  id='remember-me-checkbox'
-                  type='checkbox'
-                  name='remember-me'
-                  onChange={e => {
-                    setRememberMe(!rememberMe);
-                  }}
-                />
-                <label
-                  className='remember-me'
-                  htmlFor='remember-me-checkbox'
-                  onClick={e => {
-                    setRememberMe(!rememberMe);
-                  }}
-                >
-                  Remember me
-                </label>
+                <div>
+                  <a href='#' className='forgot-password'>
+                    Forgot Password?
+                  </a>
+                </div>
               </div>
-
-              <div>
-                <a href='#' className='forgot-password'>
-                  Forgot Password?
-                </a>
-              </div>
-            </div>
+            )}
 
             <div className='container-login-btn'>
               <button className='loginbtn' onClick={submitSignIn}>
