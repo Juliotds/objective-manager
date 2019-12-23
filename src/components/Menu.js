@@ -10,7 +10,7 @@ const Menu = ({
   authUser
 }) => {
   const onSaveButton = () => {
-    if (authUser !== null) {
+    if (authUser === null) {
       openWarningModal();
     }
   };

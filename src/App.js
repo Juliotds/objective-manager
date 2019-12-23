@@ -14,9 +14,10 @@ import firebase from "./Firestore";
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  const [program, setProgram] = useState("Gsqs8V3DijJL03kZBeDK");
+  const [boards, setBoards] = useState([]);
   const [isOpen, setOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState({});
+  const [selectedBoard, setSelectedBoard] = useState({});
   const [editDependency, setEditDependency] = useState(false);
   const [
     initialSelectedDependencies,
@@ -34,28 +35,43 @@ function App() {
   const auth = firebase.auth();
 
   useEffect(() => {
-    db.collection("program")
-      .doc(program)
-      .onSnapshot(docSnapshot => {
+    auth.onAuthStateChanged(user => {
+      console.log(user);
+      if (user) {
+        listenToUserBoards(user);
+        setAuthUser(user);
+      } else {
+        setAuthUser(null);
+        setTasks([]);
+        setBoards([]);
+      }
+    });
+  }, []);
+
+  const listenToUserBoards = user => {
+    db.collection("users")
+      .doc(user.uid)
+      .collection("boards")
+      .orderBy("lastUpdate", "desc")
+      .onSnapshot(boardSnapshot => {
         let tasksArray = [];
-        if (!docSnapshot.empty) {
-          let objectives = docSnapshot.data().objectives || {};
-          if (Object.keys(objectives).length > 0) {
-            tasksArray = Object.keys(objectives).map(key => objectives[key]);
+        console.log(boardSnapshot);
+        if (!boardSnapshot.empty) {
+          let boardsArray = boardSnapshot.docs.map(doc => ({
+            ...doc.data(),
+            uid: doc.uid
+          }));
+          setBoards(boardsArray);
+          setSelectedBoard(boardsArray[0]);
+
+          let tasks = boardSnapshot.docs[0].data().tasks || {};
+          if (Object.keys(tasks).length > 0) {
+            tasksArray = Object.keys(tasks).map(key => tasks[key]);
           }
         }
         setTasks(tasksArray);
       });
-
-    auth.onAuthStateChanged(user => {
-      console.log(user);
-      if (user) {
-        setAuthUser(user);
-      } else {
-        setAuthUser(null);
-      }
-    });
-  }, []);
+  };
 
   const editModal = (objTask, e) => {
     e.preventDefault();
@@ -102,7 +118,7 @@ function App() {
       setEditDependency(false);
     }
   };
-  const onAddNewTask = obj => {
+  const onAddNewTask = async obj => {
     if (!obj.id) {
       obj["id"] = tasks.reduce((maxId, task) => {
         if (maxId <= task.id) {
@@ -129,64 +145,120 @@ function App() {
         return filtered;
       }, []);
       newArray.push(obj);
-      let objectivesObj = {};
+      let tasksObj = {};
       for (let i = 0; i < newArray.length; i++) {
-        Object.assign(objectivesObj, { [newArray[i].id]: newArray[i] });
+        Object.assign(tasksObj, { [newArray[i].id]: newArray[i] });
       }
-      db.collection("program")
-        .doc(program)
-        .set({ objectives: objectivesObj }, { merge: true })
-        .then(() => {
-          console.log("update!");
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      if (authUser !== null) {
+        let userRef, boardRef;
+        if (authUser) {
+          userRef = db.collection("users").doc(authUser.uid);
+        } else {
+          userRef = db.collection("users").doc();
+        }
+        if (selectedBoard.uid) {
+          boardRef = userRef.collection("boards").doc(selectedBoard.uid);
+        } else {
+          boardRef = userRef.collection("boards").doc();
+        }
+
+        await boardRef
+          .set({ tasks: tasksObj, lastUpdate: Date.now() }, { merge: true })
+          .then(() => {
+            console.log("update!");
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        listenToUserBoards(authUser);
+      } else {
+        setTasks(tasksObj);
+      }
     } else {
-      db.collection("program")
-        .doc(program)
-        .set({ [`objectives`]: { [obj.id]: obj } }, { merge: true })
-        .then(() => {
-          console.log("update!");
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      if (authUser !== null) {
+        let userRef, boardRef;
+        if (authUser) {
+          userRef = db.collection("users").doc(authUser.uid);
+        } else {
+          userRef = db.collection("users").doc();
+        }
+        if (selectedBoard.uid) {
+          boardRef = userRef.collection("boards").doc(selectedBoard.uid);
+        } else {
+          boardRef = userRef.collection("boards").doc();
+        }
+
+        await boardRef
+          .set(
+            { [`tasks`]: { [obj.id]: obj }, lastUpdate: Date.now() },
+            { merge: true }
+          )
+          .then(() => {
+            console.log("update!");
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        listenToUserBoards(authUser);
+      } else {
+        let newArray = [];
+        if (tasks.length > 0) {
+          newArray = [...tasks];
+        }
+        newArray.push(obj);
+        setTasks(newArray);
+      }
     }
   };
 
-  const onDeleteTask = obj => {
+  const onDeleteTask = async obj => {
     const bTaskExists = tasks.map(task => task.id).includes(obj.id);
     if (bTaskExists) {
-      const newArray = tasks.reduce((filtered, task) => {
-        if (task.dependencies.length > 0) {
-          task.dependencies = task.dependencies.map(dependency => {
-            if (dependency !== null && typeof dependency === "object") {
-              return dependency.id;
-            } else {
-              return dependency;
-            }
+      if (authUser !== null) {
+        let userRef, boardRef;
+        if (authUser) {
+          userRef = db.collection("users").doc(authUser.uid);
+        } else {
+          userRef = db.collection("users").doc();
+        }
+        if (selectedBoard.uid) {
+          boardRef = userRef.collection("boards").doc(selectedBoard.uid);
+        } else {
+          boardRef = userRef.collection("boards").doc();
+        }
+        await boardRef
+          .set(
+            {
+              [`tasks`]: { [obj.id]: firebase.firestore.FieldValue.delete() },
+              lastUpdate: Date.now()
+            },
+            { merge: true }
+          )
+          .then(() => {
+            console.log("update!");
+          })
+          .catch(err => {
+            console.log(err);
           });
-        }
-        if (task.id !== obj.id) {
-          filtered.push(task);
-        }
-        return filtered;
-      }, []);
-      db.collection("program")
-        .doc(program)
-        .set(
-          {
-            [`objectives`]: { [obj.id]: firebase.firestore.FieldValue.delete() }
-          },
-          { merge: true }
-        )
-        .then(() => {
-          console.log("update!");
-        })
-        .catch(err => {
-          console.log(err);
-        });
+        listenToUserBoards(authUser);
+      } else {
+        let newTasksArray = tasks.reduce((filtered, task) => {
+          if (task.dependencies.length > 0) {
+            task.dependencies = task.dependencies.map(dependency => {
+              if (dependency !== null && typeof dependency === "object") {
+                return dependency.id;
+              } else {
+                return dependency;
+              }
+            });
+          }
+          if (task.id !== obj.id) {
+            filtered.push(task);
+          }
+          return filtered;
+        }, []);
+        setTasks(newTasksArray);
+      }
     }
   };
 

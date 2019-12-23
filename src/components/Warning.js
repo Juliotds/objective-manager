@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-const LoginForm = ({ isLoginModalOpen, closeLoginModal }) => {
+const LoginForm = ({ isWarningModalOpen, closeWarningModal }) => {
   const onCloseModal = () => {
-    closeLoginModal();
+    closeWarningModal();
   };
 
   return (
     <React.Fragment>
-      {isLoginModalOpen && (
+      {isWarningModalOpen && (
         <div className='modal login-modal' onClick={onCloseModal}>
           <div
             className='modal-content login-modal-content'
@@ -15,7 +15,7 @@ const LoginForm = ({ isLoginModalOpen, closeLoginModal }) => {
               e.stopPropagation();
             }}
           >
-            <h1>Login is required to do this action</h1>
+            <h3>Login is required to do this action</h3>
           </div>
         </div>
       )}
