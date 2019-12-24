@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Board from "./components/Board";
 import Menu from "./components/Menu";
+import BoardsMenu from "./components/BoardsMenu";
 import EditCardModal from "./components/EditCardModal";
 import EditCard from "./components/EditCard";
 import LoginModal from "./components/LoginModal";
@@ -36,7 +37,6 @@ function App() {
 
   useEffect(() => {
     auth.onAuthStateChanged(user => {
-      console.log(user);
       if (user) {
         listenToUserBoards(user);
         setAuthUser(user);
@@ -55,7 +55,6 @@ function App() {
       .orderBy("lastUpdate", "desc")
       .onSnapshot(boardSnapshot => {
         let tasksArray = [];
-        console.log(boardSnapshot);
         if (!boardSnapshot.empty) {
           let boardsArray = boardSnapshot.docs.map(doc => ({
             ...doc.data(),
@@ -295,14 +294,12 @@ function App() {
   };
 
   const findInDependencies = (objTask, id) => {
-    console.log(objTask, id);
     if (!objTask) {
       return false;
     }
     if (objTask.id === id) {
       return true;
     }
-    console.log(objTask, id);
     let bIdFound = false;
     for (let dependency in objTask.dependencies) {
       bIdFound =
@@ -318,7 +315,6 @@ function App() {
   const onLogin = async (email, password) => {
     try {
       const cred = await auth.signInWithEmailAndPassword(email, password);
-      console.log(cred);
     } catch (error) {}
   };
 
@@ -378,6 +374,7 @@ function App() {
           openWarningModal={openWarningModal}
           authUser={authUser}
         />
+        <BoardsMenu boards={boards} selectedBoard={selectedBoard} />
       </div>
       <EditCardModal>
         <EditCard

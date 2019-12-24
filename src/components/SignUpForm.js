@@ -44,7 +44,7 @@ const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal, onSignUp }) => {
             <div className='wrap-username' data-validate='Email is required'>
               <input
                 className='input-login'
-                type='text'
+                type='email'
                 name='username'
                 value={username}
                 onChange={e => {

@@ -356,14 +356,104 @@ code {
   overflow-y: auto;
   display: flex;
   flex-direction: row;
-  max-height: 800px;
 }
 
 /* Menu */
 .menu {
   background-color: var(--light-color);
-  margin: 1rem 0rem;
-  padding: 1rem;
+  padding: 1rem 1rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.edit-board-menu {
+  background-color: #fff;
+  height: 8rem;
+}
+
+.edit-board {
+  color: #333;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.edit-board .title {
+  min-width: 10rem;
+}
+
+.edit-board .description {
+  min-width: 10rem;
+}
+
+.boards-menu {
+  color: #333;
+  overflow-x: scroll;
+}
+
+.description {
+  width: 100%;
+  height: 4rem;
+}
+
+.board-text {
+  font-family: Raleway-Medium;
+  color: #333;
+  line-height: 1.2;
+  font-size: 18px;
+
+  display: block;
+  width: 100%;
+  background: transparent;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.board-text .text-description {
+  font-family: Raleway-Medium;
+  color: #333333;
+  line-height: 1.2;
+  font-size: 1rem;
+  height: 4rem;
+}
+
+.boards-element {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  background-color: #fff;
+  margin: 0.5rem;
+  padding: 0.5rem 0.5rem 2rem 0.5rem;
+  width: 160px;
+  cursor: pointer;
+}
+
+.boards-element > p {
+  padding: 0.2rem;
+}
+
+.add-btn {
+  cursor: pointer;
+  text-align: center;
+  justify-content: center;
+}
+
+.add-btn > h1 {
+  font-size: 5rem;
+  font-weight: 200;
+}
+
+.btn-edit {
+  display: inline-block;
+  background: var(--success-color);
+  color: #333;
+  padding: 0.1rem 0.2rem;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: opacity 0.2s ease-in;
+  outline: none;
 }
 
 .btn {
@@ -377,6 +467,18 @@ code {
   margin-right: 0.5rem;
   transition: opacity 0.2s ease-in;
   outline: none;
+}
+
+.btn-board {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 10rem;
+}
+
+.btn > h4 {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .badge {
