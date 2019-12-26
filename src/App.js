@@ -3,6 +3,8 @@ import Navbar from "./components/Navbar";
 import Board from "./components/Board";
 import Menu from "./components/Menu";
 import BoardsMenu from "./components/BoardsMenu";
+import EditBoardModal from "./components/EditBoardModal";
+import EditBoard from "./components/EditBoard";
 import EditCardModal from "./components/EditCardModal";
 import EditCard from "./components/EditCard";
 import LoginModal from "./components/LoginModal";
@@ -11,14 +13,21 @@ import SignUpModal from "./components/SignUpModal";
 import SignUpForm from "./components/SignUpForm";
 import WarningModal from "./components/WarningModal";
 import Warning from "./components/Warning";
-import firebase from "./Firestore";
+import { firebase, FieldValue } from "./Firestore";
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [boards, setBoards] = useState([]);
   const [isOpen, setOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState({});
-  const [selectedBoard, setSelectedBoard] = useState({});
+  const [selectedBoard, setSelectedBoard] = useState({
+    title: "",
+    description: ""
+  });
+  const [boardToEdit, setBoardToEdit] = useState({
+    title: "",
+    description: ""
+  });
   const [editDependency, setEditDependency] = useState(false);
   const [
     initialSelectedDependencies,
@@ -30,6 +39,7 @@ function App() {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+  const [isEditBoardModalOpen, setIsEditBoardModalOpen] = useState(false);
 
   // read data from database
   const db = firebase.firestore();
@@ -45,10 +55,14 @@ function App() {
         setTasks([]);
         setBoards([]);
       }
+      console.log(user);
     });
   }, []);
 
   const listenToUserBoards = user => {
+    setSelectedBoard({ title: "", description: "" });
+    setBoards([]);
+    setTasks([]);
     db.collection("users")
       .doc(user.uid)
       .collection("boards")
@@ -58,10 +72,10 @@ function App() {
         if (!boardSnapshot.empty) {
           let boardsArray = boardSnapshot.docs.map(doc => ({
             ...doc.data(),
-            uid: doc.uid
+            uid: doc.id
           }));
           setBoards(boardsArray);
-          setSelectedBoard(boardsArray[0]);
+          setSelectedBoard(boardsArray[0] || { title: "", description: "" });
 
           let tasks = boardSnapshot.docs[0].data().tasks || {};
           if (Object.keys(tasks).length > 0) {
@@ -228,7 +242,7 @@ function App() {
         await boardRef
           .set(
             {
-              [`tasks`]: { [obj.id]: firebase.firestore.FieldValue.delete() },
+              [`tasks`]: { [obj.id]: FieldValue.delete() },
               lastUpdate: Date.now()
             },
             { merge: true }
@@ -348,6 +362,147 @@ function App() {
     setIsWarningModalOpen(false);
   };
 
+  const selectBoard = uid => {
+    const boardToSet = boards.find(board => board.uid === uid) || {};
+    console.log(boardToSet);
+    setSelectedBoard(boardToSet);
+  };
+
+  const openEditBoardModal = boardObj => {
+    if (
+      !(Object.keys(boardObj).length === 0 && boardObj.constructor === Object)
+    ) {
+      setBoardToEdit(boardObj);
+    } else {
+      setBoardToEdit({
+        title: "",
+        description: ""
+      });
+    }
+
+    setIsEditBoardModalOpen(true);
+  };
+
+  const closeEditBoardModal = () => {
+    setBoardToEdit({
+      title: "",
+      description: ""
+    });
+    setIsEditBoardModalOpen(false);
+  };
+
+  const onAddNewBoard = async boardObj => {
+    const bBoardExists = boards.map(board => board.uid).includes(boardObj.uid);
+    if (bBoardExists) {
+      const newArray = boards.reduce((filtered, board) => {
+        if (board.uid !== boardObj.uid) {
+          filtered.push(board);
+        }
+        return filtered;
+      }, []);
+      newArray.push(boardObj);
+      if (authUser !== null) {
+        let userRef, boardRef;
+        if (authUser) {
+          userRef = db.collection("users").doc(authUser.uid);
+        } else {
+          userRef = db.collection("users").doc();
+        }
+        boardRef = userRef.collection("boards").doc(boardObj.uid);
+
+        await boardRef
+          .set(
+            {
+              lastUpdate: Date.now(),
+              uid: boardObj.uid,
+              title: boardObj.title,
+              description: boardObj.description
+            },
+            { merge: true }
+          )
+          .then(() => {
+            console.log("update!");
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        listenToUserBoards(authUser);
+      } else {
+        setTasks(newArray);
+      }
+    } else {
+      if (authUser !== null) {
+        let userRef, boardRef;
+        if (authUser) {
+          userRef = db.collection("users").doc(authUser.uid);
+        } else {
+          userRef = db.collection("users").doc();
+        }
+        boardRef = userRef.collection("boards").doc();
+        boardObj.uid = boardRef.id;
+        console.log(boardObj.uid);
+        await boardRef
+          .set(
+            {
+              tasks: [],
+              lastUpdate: Date.now(),
+              uid: boardObj.uid,
+              title: boardObj.title,
+              description: boardObj.description
+            },
+            { merge: true }
+          )
+          .then(() => {
+            console.log("update!");
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        listenToUserBoards(authUser);
+      } else {
+        let newArray = [];
+        if (boards.length > 0) {
+          newArray = [...boards];
+        }
+        newArray.push(boardObj);
+        setBoards(newArray);
+      }
+    }
+  };
+
+  const onDeleteBoard = async boardObj => {
+    const bBoardExists = boards.map(board => board.uid).includes(boardObj.uid);
+    if (bBoardExists) {
+      if (authUser !== null) {
+        let userRef, boardRef;
+        if (authUser) {
+          userRef = db.collection("users").doc(authUser.uid);
+        } else {
+          userRef = db.collection("users").doc();
+        }
+        boardRef = userRef.collection("boards").doc(boardObj.uid);
+        await boardRef
+          .delete()
+          .then(() => {
+            console.log("update!");
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+      let newBoardsArray = boards.reduce((filtered, board) => {
+        if (board.uid !== boardObj.uid) {
+          filtered.push(board);
+        }
+        return filtered;
+      }, []);
+      setBoards(newBoardsArray);
+      if (authUser !== null) {
+        listenToUserBoards(authUser);
+      }
+    }
+  };
+
   return (
     <Fragment>
       <Navbar
@@ -367,14 +522,20 @@ function App() {
         />
         <Menu
           openModal={openModal}
-          closeModal={closeModal}
           editDependency={editDependency}
           onSaveDependency={onSaveDependency}
           onCancelDependency={onCancelDependency}
           openWarningModal={openWarningModal}
           authUser={authUser}
+          selectedBoard={selectedBoard}
+          openEditBoardModal={openEditBoardModal}
         />
-        <BoardsMenu boards={boards} selectedBoard={selectedBoard} />
+        <BoardsMenu
+          boards={boards}
+          selectedBoard={selectedBoard}
+          selectBoard={selectBoard}
+          openEditBoardModal={openEditBoardModal}
+        />
       </div>
       <EditCardModal>
         <EditCard
@@ -409,6 +570,15 @@ function App() {
           closeWarningModal={closeWarningModal}
         />
       </WarningModal>
+      <EditBoardModal>
+        <EditBoard
+          isEditBoardModalOpen={isEditBoardModalOpen}
+          closeEditBoardModal={closeEditBoardModal}
+          onAddNewBoard={onAddNewBoard}
+          onDeleteBoard={onDeleteBoard}
+          boardToEdit={boardToEdit}
+        />
+      </EditBoardModal>
     </Fragment>
   );
 }

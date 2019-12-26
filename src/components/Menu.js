@@ -2,7 +2,6 @@ import React, { Fragment, useState } from "react";
 
 const Menu = ({
   openModal,
-  closeModal,
   editDependency,
   onSaveDependency,
   onCancelDependency,
@@ -13,9 +12,12 @@ const Menu = ({
 }) => {
   const onEditButton = () => {
     if (authUser === null) {
-      openWarningModal();
+      openWarningModal({
+        title: "",
+        description: ""
+      });
     } else {
-      openEditBoardModal();
+      openEditBoardModal(selectedBoard);
     }
   };
   return (
@@ -28,6 +30,17 @@ const Menu = ({
           <div className='btn btn-dark btn-board' onClick={onEditButton}>
             <h4>Edit Board</h4>
           </div>
+        </Fragment>
+      )}
+
+      {editDependency && (
+        <Fragment>
+          <div className='btn btn-success btn-board' onClick={onSaveDependency}>
+            Save Dependencies
+          </div>
+          <div className='btn btn-dark btn-board' onClick={onCancelDependency}>
+            Cancel
+          </div>{" "}
         </Fragment>
       )}
       <div className='edit-board'>

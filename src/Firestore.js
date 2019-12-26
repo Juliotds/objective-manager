@@ -10,4 +10,5 @@ const devConfig = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 };
 const firebase = app.initializeApp(devConfig);
-export default firebase;
+const FieldValue = app.firestore.FieldValue;
+export { firebase, FieldValue };

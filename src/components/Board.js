@@ -15,7 +15,6 @@ const Board = ({
     if (tasks.length > 0) {
       tasksCopy = [...tasks];
     }
-    console.log(tasksCopy);
     taskColumn = [];
     let tasksWithReference = tasksCopy.map(task => {
       task.dependencies = task.dependencies.reduce((filtered, dependency) => {

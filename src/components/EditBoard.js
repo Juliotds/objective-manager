@@ -1,0 +1,139 @@
+import React, { useState, useEffect } from "react";
+
+const EditBoard = ({
+  isEditBoardModalOpen,
+  closeEditBoardModal,
+  onAddNewBoard,
+  onDeleteBoard,
+  boardToEdit
+}) => {
+  const [board, setBoard] = useState({
+    title: "",
+    description: ""
+  });
+  const [validTitle, setValidTitle] = useState(false);
+
+  const onTextChange = e => {
+    const key = e.target.name;
+    const val = e.target.value;
+    setBoard(prev => {
+      return { ...prev, [key]: val };
+    });
+    onFormValidation(key, val);
+  };
+
+  const onFormValidation = (name, value) => {
+    let bValid;
+    if (name === "title") {
+      bValid = value !== "";
+      setValidTitle(bValid);
+    }
+    const bValidForm = validTitle;
+    return bValidForm;
+  };
+  const onSave = async e => {
+    if (onFormValidation()) {
+      await onAddNewBoard(board);
+
+      setBoard({
+        title: "",
+        description: ""
+      });
+      setValidTitle(false);
+
+      closeEditBoardModal(true);
+    } else {
+      console.log(e.target);
+      //TODO: error message
+    }
+  };
+
+  const onDelete = async e => {
+    await onDeleteBoard(board);
+
+    setBoard({
+      title: "",
+      description: ""
+    });
+    setValidTitle(false);
+    closeEditBoardModal(true);
+  };
+  const onCancel = e => {
+    setBoard({
+      title: "",
+      description: ""
+    });
+    closeEditBoardModal(true);
+  };
+
+  const onCloseModal = e => {
+    setBoard({
+      title: "",
+      description: ""
+    });
+    setValidTitle(false);
+    closeEditBoardModal();
+  };
+
+  useEffect(() => {
+    if (
+      !(
+        Object.keys(boardToEdit).length === 0 &&
+        boardToEdit.constructor === Object
+      )
+    ) {
+      if (isEditBoardModalOpen) {
+        console.log(boardToEdit);
+        setBoard({ ...boardToEdit });
+        console.log(board);
+        setValidTitle(true);
+      }
+    }
+  }, [isEditBoardModalOpen]);
+
+  return (
+    <React.Fragment>
+      {isEditBoardModalOpen && (
+        <div className='modal' onClick={onCloseModal}>
+          <div
+            className='modal-content'
+            onClick={e => {
+              e.stopPropagation();
+            }}
+          >
+            <h1>TESTE</h1>
+            <label htmlFor='text-title'>Title: </label>
+            <input
+              type='text'
+              name='title'
+              id='text-title'
+              onChange={onTextChange}
+              value={board.title || ""}
+            />
+            <br />
+            <label htmlFor='text-description'>Description: </label>
+            <textarea
+              name='description'
+              id='text-description'
+              onChange={onTextChange}
+              value={board.description || ""}
+            />
+            <br />
+            <br />
+            <div className='btn btn-success' onClick={onSave}>
+              Save
+            </div>
+            <div className='btn btn-dark' onClick={onCancel}>
+              Cancel
+            </div>
+            <div className='btn btn-danger' onClick={onDelete}>
+              Delete
+            </div>
+          </div>
+        </div>
+      )}
+    </React.Fragment>
+  );
+};
+
+export default EditBoard;
