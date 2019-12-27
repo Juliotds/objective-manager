@@ -65,7 +65,6 @@ code {
 }
 
 .card-column {
-  background-color: #ebecf0;
   margin: 0.5rem;
   padding: 1rem;
   min-width: 300px;
@@ -352,6 +351,8 @@ code {
 
 /* Board */
 .board {
+  background-color: #ebecf0;
+  min-height: 20rem;
   overflow-x: scroll;
   overflow-y: auto;
   display: flex;
@@ -426,6 +427,14 @@ code {
   padding: 0.5rem 0.5rem 2rem 0.5rem;
   width: 160px;
   cursor: pointer;
+}
+.boards-element:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.boards-element.selected {
+  border: 2px solid #555;
 }
 
 .boards-element > p {

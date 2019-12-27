@@ -15,23 +15,27 @@ const Board = ({
     if (tasks.length > 0) {
       tasksCopy = [...tasks];
     }
+    console.log(tasks);
     taskColumn = [];
-    let tasksWithReference = tasksCopy.map(task => {
-      task.dependencies = task.dependencies.reduce((filtered, dependency) => {
-        if (dependency !== null && typeof dependency === "object") {
-          filtered.push(dependency);
-        } else {
-          filtered = tasks.reduce((taskArray, task) => {
-            if (task.id === dependency) {
-              taskArray.push(task);
-            }
-            return taskArray;
-          }, []);
-        }
-        return filtered;
-      }, []);
-      return task;
-    });
+    let tasksWithReference = [];
+    if (tasksCopy.length > 0) {
+      tasksWithReference = tasksCopy.map(task => {
+        task.dependencies = task.dependencies.reduce((filtered, dependency) => {
+          if (dependency !== null && typeof dependency === "object") {
+            filtered.push(dependency);
+          } else {
+            filtered = tasks.reduce((taskArray, task) => {
+              if (task.id === dependency) {
+                taskArray.push(task);
+              }
+              return taskArray;
+            }, []);
+          }
+          return filtered;
+        }, []);
+        return task;
+      });
+    }
     for (let i = 0; tasksWithReference.length > 0; i++) {
       taskColumn.push(
         tasksWithReference.filter(task => {

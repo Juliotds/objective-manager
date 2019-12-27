@@ -54,6 +54,15 @@ function App() {
         setAuthUser(null);
         setTasks([]);
         setBoards([]);
+        setSelectedBoard({
+          title: "",
+          description: ""
+        });
+        setSelectedTask({});
+        setBoardToEdit({
+          title: "",
+          description: ""
+        });
       }
       console.log(user);
     });
@@ -185,7 +194,20 @@ function App() {
           });
         listenToUserBoards(authUser);
       } else {
-        setTasks(tasksObj);
+        let newArray = [];
+        if (tasksObj.length > 0) {
+          newArray = [...tasksObj];
+        }
+        let boardsArray = boards.filter(
+          board =>
+            Object.keys(board).filter(key => selectedBoard[key] !== board[key])
+              .length > 0
+        );
+        let newBoard = { ...selectedBoard, tasks: tasksObj };
+        boardsArray.push(newBoard);
+        setTasks(newArray);
+        setSelectedBoard(newBoard);
+        setBoards(boardsArray);
       }
     } else {
       if (authUser !== null) {
@@ -218,7 +240,20 @@ function App() {
         if (tasks.length > 0) {
           newArray = [...tasks];
         }
-        newArray.push(obj);
+        let tasksObj = {};
+        for (let i = 0; i < newArray.length; i++) {
+          Object.assign(tasksObj, { [newArray[i].id]: newArray[i] });
+        }
+        let boardsArray = boards.filter(
+          board =>
+            Object.keys(board).filter(key => selectedBoard[key] !== board[key])
+              .length > 0
+        );
+        let newBoard = { ...selectedBoard, tasks: tasksObj };
+        boardsArray.push(newBoard);
+        setTasks(newArray);
+        setSelectedBoard(newBoard);
+        setBoards(boardsArray);
         setTasks(newArray);
       }
     }
@@ -364,8 +399,15 @@ function App() {
 
   const selectBoard = uid => {
     const boardToSet = boards.find(board => board.uid === uid) || {};
-    console.log(boardToSet);
+    let taskArray = [];
     setSelectedBoard(boardToSet);
+    if (boardToSet.tasks) {
+      taskArray = Object.keys(boardToSet.tasks).map(
+        key => boardToSet.tasks[key]
+      );
+    }
+
+    setTasks(taskArray);
   };
 
   const openEditBoardModal = boardObj => {
@@ -392,7 +434,12 @@ function App() {
   };
 
   const onAddNewBoard = async boardObj => {
-    const bBoardExists = boards.map(board => board.uid).includes(boardObj.uid);
+    const bBoardExists =
+      boards.filter(
+        board =>
+          Object.keys(board).filter(key => boardObj[key] !== board[key])
+            .length === 0
+      ).length > 0;
     if (bBoardExists) {
       const newArray = boards.reduce((filtered, board) => {
         if (board.uid !== boardObj.uid) {
@@ -428,7 +475,9 @@ function App() {
           });
         listenToUserBoards(authUser);
       } else {
-        setTasks(newArray);
+        setBoards(newArray);
+        setSelectedBoard(boardObj);
+        setTasks([]);
       }
     } else {
       if (authUser !== null) {
@@ -465,6 +514,8 @@ function App() {
           newArray = [...boards];
         }
         newArray.push(boardObj);
+        setSelectedBoard(boardObj);
+        setTasks([]);
         setBoards(newArray);
       }
     }
