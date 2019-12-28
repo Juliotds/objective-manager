@@ -6,7 +6,16 @@ const Card = ({
   editDependency,
   onAddNewDependency,
   onRemoveDependency,
-  highlight
+  highlight,
+  showDependencies,
+  hideDependencies,
+  dependenciesObj = {
+    hasDependencies: false,
+    dependencyColor: "",
+    dependents: []
+  },
+  onHover = false,
+  onNotHover = false
 }) => {
   const showAsDependency = e => {
     if (highlight) {
@@ -15,18 +24,38 @@ const Card = ({
       onAddNewDependency.bind(null, task)();
     }
   };
-
   return (
     <Fragment>
       {!editDependency && (
-        <div className='card' id={task.id} onClick={editModal.bind(null, task)}>
-          <h4>{task.title}</h4>
-          <span className='duration badge badge-danger'>{task.time}h</span>
+        <div
+          className={`card ${onHover && "active"} ${onNotHover && "inactive"}`}
+          id={task.id}
+          onClick={editModal.bind(null, task)}
+          onMouseEnter={showDependencies.bind(this, task)}
+          onMouseLeave={hideDependencies}
+        >
+          <span
+            className={`dependencies ${dependenciesObj.hasDependencies &&
+              dependenciesObj.dependencyColor}`}
+          ></span>
+          <div className='card-container'>
+            <h4>{task.title}</h4>
+            <span className='duration badge badge-danger'>{task.time}h</span>
+          </div>
+          <div className='dependents'>
+            {dependenciesObj.dependents.map((dependent, index) => (
+              <span className={`${dependent}`} key={index}></span>
+            ))}
+          </div>
         </div>
       )}
       {editDependency && (
         <div
-          className={highlight ? "card active" : "card"}
+          className={
+            highlight
+              ? "card-edit-dependencies active"
+              : "card-edit-dependencies"
+          }
           id={task.id}
           onClick={showAsDependency}
         >

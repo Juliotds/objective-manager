@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal, onSignUp }) => {
   const [username, setUsername] = useState("");
@@ -8,6 +8,9 @@ const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal, onSignUp }) => {
   const onCloseModal = () => {
     closeSignUpModal();
   };
+  const inputEmail = useRef(null);
+  const inputPassword = useRef(null);
+  const inputConfirmPassword = useRef(null);
 
   const submitSignIn = async e => {
     e.preventDefault();
@@ -25,6 +28,24 @@ const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal, onSignUp }) => {
       setErrorMsg("");
     } else {
       setErrorMsg("Please, check your email and password again.");
+    }
+  };
+
+  const emailHandleKeyDown = e => {
+    if (e.key === "enter") {
+      inputPassword.current.focus();
+    }
+  };
+
+  const passwordHandleKeyDown = e => {
+    if (e.key === "enter") {
+      inputConfirmPassword.current.focus();
+    }
+  };
+
+  const confirmPasswordHandleKeyDown = e => {
+    if (e.key === "enter") {
+      submitSignIn(e);
     }
   };
 
@@ -50,6 +71,8 @@ const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal, onSignUp }) => {
                 onChange={e => {
                   setUsername(e.target.value);
                 }}
+                ref={inputEmail}
+                onKeyDown={emailHandleKeyDown}
               />
               <span className='focus-input'></span>
             </div>
@@ -64,6 +87,8 @@ const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal, onSignUp }) => {
                 onChange={e => {
                   setPassword(e.target.value);
                 }}
+                ref={inputPassword}
+                onKeyDown={passwordHandleKeyDown}
               />
               <span className='focus-input'></span>
             </div>
@@ -81,6 +106,8 @@ const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal, onSignUp }) => {
                 onChange={e => {
                   setConfirmPassword(e.target.value);
                 }}
+                ref={inputConfirmPassword}
+                onKeyDown={confirmPasswordHandleKeyDown}
               />
               <span className='focus-input'></span>
             </div>

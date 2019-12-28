@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 const LoginForm = ({ isLoginModalOpen, closeLoginModal, onLogin }) => {
   const [username, setUsername] = useState("");
@@ -8,9 +8,13 @@ const LoginForm = ({ isLoginModalOpen, closeLoginModal, onLogin }) => {
   const onCloseModal = () => {
     closeLoginModal();
   };
+  const inputEmail = useRef(null);
+  const inputPassword = useRef(null);
 
   const submitSignIn = e => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     if (
       password.length > 5 &&
       username.match(
@@ -24,6 +28,18 @@ const LoginForm = ({ isLoginModalOpen, closeLoginModal, onLogin }) => {
       closeLoginModal();
     } else {
       setErrorMsg("Please, check your email and password again.");
+    }
+  };
+
+  const emailHandleKeyDown = e => {
+    if (e.key === "enter") {
+      inputPassword.current.focus();
+    }
+  };
+
+  const passwordHandleKeyDown = e => {
+    if (e.key === "enter") {
+      submitSignIn();
     }
   };
 
@@ -49,6 +65,8 @@ const LoginForm = ({ isLoginModalOpen, closeLoginModal, onLogin }) => {
                 onChange={e => {
                   setUsername(e.target.value);
                 }}
+                ref={inputEmail}
+                onKeyDown={emailHandleKeyDown}
               />
               <span className='focus-input'></span>
             </div>
@@ -63,6 +81,8 @@ const LoginForm = ({ isLoginModalOpen, closeLoginModal, onLogin }) => {
                 onChange={e => {
                   setPassword(e.target.value);
                 }}
+                ref={inputPassword}
+                onKeyDown={passwordHandleKeyDown}
               />
               <span className='focus-input'></span>
             </div>

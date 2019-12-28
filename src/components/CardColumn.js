@@ -7,12 +7,19 @@ const CardColumn = ({
   editDependency,
   onAddNewDependency,
   onRemoveDependency,
-  selectedDependencies
+  selectedDependencies,
+  showDependencies,
+  hideDependencies,
+  dependenciesObj,
+  hoverTasksArray
 }) => {
   return (
     <div className='card-column'>
       {tasks.map((task, i) => {
         const highlight = selectedDependencies.includes(task.id);
+        const onHover = hoverTasksArray.includes(task.id);
+        const onNotHover =
+          !hoverTasksArray.includes(task.id) && hoverTasksArray.length > 0;
         return (
           <Card
             key={i}
@@ -22,6 +29,11 @@ const CardColumn = ({
             onAddNewDependency={onAddNewDependency}
             onRemoveDependency={onRemoveDependency}
             highlight={highlight}
+            showDependencies={showDependencies}
+            hideDependencies={hideDependencies}
+            dependenciesObj={dependenciesObj[task.id]}
+            onHover={onHover}
+            onNotHover={onNotHover}
           />
         );
       })}

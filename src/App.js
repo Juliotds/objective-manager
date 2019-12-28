@@ -64,7 +64,6 @@ function App() {
           description: ""
         });
       }
-      console.log(user);
     });
   }, []);
 
@@ -85,13 +84,16 @@ function App() {
           }));
           setBoards(boardsArray);
           setSelectedBoard(boardsArray[0] || { title: "", description: "" });
+          let updatedTasks = {};
 
-          let tasks = boardSnapshot.docs[0].data().tasks || {};
-          if (Object.keys(tasks).length > 0) {
-            tasksArray = Object.keys(tasks).map(key => tasks[key]);
+          updatedTasks = { ...boardSnapshot.docs[0].data()["tasks"] } || {};
+          if (Object.keys(updatedTasks).length > 0) {
+            tasksArray = Object.keys(updatedTasks).map(
+              key => updatedTasks[key]
+            );
           }
         }
-        setTasks(tasksArray);
+        setTasks([...tasksArray]);
       });
   };
 
@@ -205,7 +207,7 @@ function App() {
         );
         let newBoard = { ...selectedBoard, tasks: tasksObj };
         boardsArray.push(newBoard);
-        setTasks(newArray);
+        setTasks([...newArray]);
         setSelectedBoard(newBoard);
         setBoards(boardsArray);
       }
@@ -251,10 +253,9 @@ function App() {
         );
         let newBoard = { ...selectedBoard, tasks: tasksObj };
         boardsArray.push(newBoard);
-        setTasks(newArray);
+        setTasks([...newArray]);
         setSelectedBoard(newBoard);
         setBoards(boardsArray);
-        setTasks(newArray);
       }
     }
   };
@@ -305,7 +306,7 @@ function App() {
           }
           return filtered;
         }, []);
-        setTasks(newTasksArray);
+        setTasks([...newTasksArray]);
       }
     }
   };
@@ -407,7 +408,7 @@ function App() {
       );
     }
 
-    setTasks(taskArray);
+    setTasks([...taskArray]);
   };
 
   const openEditBoardModal = boardObj => {
@@ -564,7 +565,7 @@ function App() {
       />
       <div className='container'>
         <Board
-          tasks={tasks}
+          tasks={tasks.map(task => JSON.parse(JSON.stringify(task)))}
           editModal={editModal}
           editDependency={editDependency}
           onAddNewDependency={onAddNewDependency}
