@@ -32,13 +32,15 @@ const LoginForm = ({ isLoginModalOpen, closeLoginModal, onLogin }) => {
   };
 
   const emailHandleKeyDown = e => {
-    if (e.key === "enter") {
+    console.log("indo");
+    if (e.key === "Enter") {
+      console.log("foi");
       inputPassword.current.focus();
     }
   };
 
   const passwordHandleKeyDown = e => {
-    if (e.key === "enter") {
+    if (e.key === "Enter") {
       submitSignIn();
     }
   };

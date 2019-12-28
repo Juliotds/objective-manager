@@ -18,6 +18,7 @@ const Card = ({
   onNotHover = false
 }) => {
   const showAsDependency = e => {
+    console.log("indo");
     if (highlight) {
       onRemoveDependency.bind(null, task.id)();
     } else {
@@ -39,7 +40,11 @@ const Card = ({
               dependenciesObj.dependencyColor}`}
           ></span>
           <div className='card-container'>
-            <h4>{task.title}</h4>
+            <h4>
+              {task.title.toString().length > 15
+                ? task.title.toString().substr(0, 15) + "..."
+                : task.title.toString()}
+            </h4>
             <span className='duration badge badge-danger'>{task.time}h</span>
           </div>
           <div className='dependents'>
@@ -59,7 +64,11 @@ const Card = ({
           id={task.id}
           onClick={showAsDependency}
         >
-          <h4>{task.title}</h4>
+          <h4>
+            {task.title.toString().length > 15
+              ? task.title.toString().substr(0, 15) + "..."
+              : task.title.toString()}
+          </h4>
           <span className='duration badge badge-danger'>{task.time}h</span>
         </div>
       )}

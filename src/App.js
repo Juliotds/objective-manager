@@ -100,7 +100,7 @@ function App() {
   const editModal = (objTask, e) => {
     e.preventDefault();
     setOpen(true);
-    setSelectedTask(objTask);
+    setSelectedTask(JSON.parse(JSON.stringify(objTask)));
   };
 
   const openModal = e => {
@@ -343,7 +343,7 @@ function App() {
     }
   };
 
-  const findInDependencies = (objTask, id) => {
+  const findInDependencies = (objTask, id = 0) => {
     if (!objTask) {
       return false;
     }
@@ -490,7 +490,6 @@ function App() {
         }
         boardRef = userRef.collection("boards").doc();
         boardObj.uid = boardRef.id;
-        console.log(boardObj.uid);
         await boardRef
           .set(
             {
@@ -591,6 +590,7 @@ function App() {
       </div>
       <EditCardModal>
         <EditCard
+          tasks={tasks}
           isOpen={isOpen}
           closeModal={closeModal}
           onEditDependency={onEditDependency}

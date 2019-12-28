@@ -157,6 +157,114 @@ code {
   margin-right: 0.6rem;
 }
 
+.edit-task-modal {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.edit-task-modal-content {
+  background-color: var(--light-color);
+  color: #333;
+
+  width: 560px;
+  padding: 2rem !important;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-between;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.input-span {
+  font-size: 13px;
+  color: #555555;
+  line-height: 1.4;
+  text-transform: uppercase;
+  padding-bottom: 11px;
+}
+
+.input-title {
+  background-color: #fff;
+  color: #555555;
+  line-height: 1.2;
+  font-size: 18px;
+
+  display: block;
+  width: 100%;
+  height: 2rem;
+  padding: 0.5rem;
+}
+
+.input-description {
+  background-color: #fff;
+  color: #555555;
+  line-height: 1.2;
+  font-size: 18px;
+
+  display: block;
+  width: 100%;
+  height: 20rem;
+  padding: 0.5rem;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  resize: none;
+}
+
+.task-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.task-wrapper .half {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 45%;
+}
+
+.dependencies-ul {
+  padding: 0.5rem 0.5rem 1rem 3rem;
+}
+
+.dependencies-ul li {
+  width: 13rem;
+  float: left;
+}
+
+.edit-dependencies-button {
+  text-align: center;
+}
+
+.button-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.button-wrapper div {
+  width: 100%;
+}
+
 .login-modal {
   width: 100%;
   min-height: 100vh;

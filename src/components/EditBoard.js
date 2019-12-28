@@ -83,9 +83,7 @@ const EditBoard = ({
       )
     ) {
       if (isEditBoardModalOpen) {
-        console.log(boardToEdit);
         setBoard({ ...boardToEdit });
-        console.log(board);
         setValidTitle(true);
       }
     }
@@ -94,16 +92,19 @@ const EditBoard = ({
   return (
     <React.Fragment>
       {isEditBoardModalOpen && (
-        <div className='modal' onClick={onCloseModal}>
+        <div className='modal edit-task-modal' onClick={onCloseModal}>
           <div
-            className='modal-content'
+            className='modal-content edit-task-modal-content'
             onClick={e => {
               e.stopPropagation();
             }}
           >
             <h1>TESTE</h1>
-            <label htmlFor='text-title'>Title: </label>
+            <label className='input-span' htmlFor='text-title'>
+              Title:{" "}
+            </label>
             <input
+              className='input-title'
               type='text'
               name='title'
               id='text-title'
@@ -113,6 +114,7 @@ const EditBoard = ({
             <br />
             <label htmlFor='text-description'>Description: </label>
             <textarea
+              className='input-description'
               name='description'
               id='text-description'
               onChange={onTextChange}
@@ -120,14 +122,16 @@ const EditBoard = ({
             />
             <br />
             <br />
-            <div className='btn btn-success' onClick={onSave}>
-              Save
-            </div>
-            <div className='btn btn-dark' onClick={onCancel}>
-              Cancel
-            </div>
-            <div className='btn btn-danger' onClick={onDelete}>
-              Delete
+            <div className='button-wrapper'>
+              <div className='btn btn-success' onClick={onSave}>
+                Save
+              </div>
+              <div className='btn btn-dark' onClick={onCancel}>
+                Cancel
+              </div>
+              <div className='btn btn-danger' onClick={onDelete}>
+                Delete
+              </div>
             </div>
           </div>
         </div>

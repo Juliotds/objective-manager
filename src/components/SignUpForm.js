@@ -32,19 +32,19 @@ const SignUpForm = ({ isSignUpModalOpen, closeSignUpModal, onSignUp }) => {
   };
 
   const emailHandleKeyDown = e => {
-    if (e.key === "enter") {
+    if (e.key === "Enter") {
       inputPassword.current.focus();
     }
   };
 
   const passwordHandleKeyDown = e => {
-    if (e.key === "enter") {
+    if (e.key === "Enter") {
       inputConfirmPassword.current.focus();
     }
   };
 
   const confirmPasswordHandleKeyDown = e => {
-    if (e.key === "enter") {
+    if (e.key === "Enter") {
       submitSignIn(e);
     }
   };

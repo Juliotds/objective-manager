@@ -24,12 +24,7 @@ const Board = ({
           if (dependency !== null && typeof dependency === "object") {
             filtered.push(dependency);
           } else {
-            filtered = tasks.reduce((taskArray, task) => {
-              if (task.id === dependency) {
-                taskArray.push(task);
-              }
-              return taskArray;
-            }, []);
+            filtered.push(tasks.find(tsk => tsk.id === dependency));
           }
           return filtered;
         }, []);

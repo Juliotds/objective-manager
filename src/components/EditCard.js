@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const EditCard = ({
+  tasks,
   isOpen,
   closeModal,
   onEditDependency,
@@ -154,16 +155,18 @@ const EditCard = ({
   return (
     <React.Fragment>
       {isOpen && (
-        <div className='modal' onClick={onCloseModal}>
+        <div className='modal edit-task-modal' onClick={onCloseModal}>
           <div
-            className='modal-content'
+            className='edit-task-modal-content'
             onClick={e => {
               e.stopPropagation();
             }}
           >
-            <h1>TESTE</h1>
-            <label htmlFor='text-title'>Title: </label>
+            <label className='input-span' htmlFor='text-title'>
+              Task Title:{" "}
+            </label>
             <input
+              className='input-title'
               type='text'
               name='title'
               id='text-title'
@@ -171,63 +174,83 @@ const EditCard = ({
               value={task.title}
             />
             <br />
-            <label htmlFor='text-content'>Description:</label>
-            <input
-              type='text'
+            <label className='input-span' htmlFor='text-content'>
+              Description:
+            </label>
+            <textarea
+              className='input-description'
               name='content'
               id='text-content'
               onChange={onChange}
               value={task.content}
-            />
+            ></textarea>
             <br />
-            <label htmlFor='text-priority'>Priority:</label>
-            <input
-              type='number'
-              name='priority'
-              id='text-priority'
-              onChange={onChange}
-              value={task.priority}
-            />
+            <div className='task-wrapper'>
+              <div className='half'>
+                <label className='input-span' htmlFor='text-priority'>
+                  Priority:
+                </label>
+                <input
+                  className='input-title'
+                  type='number'
+                  name='priority'
+                  id='text-priority'
+                  onChange={onChange}
+                  value={task.priority}
+                />
+              </div>
+              <div className='half'>
+                <label className='input-span' htmlFor='text-time'>
+                  Time:
+                </label>
+                <input
+                  className='input-title'
+                  type='number'
+                  name='time'
+                  id='text-time'
+                  onChange={onChange}
+                  value={task.time}
+                />
+              </div>
+            </div>
             <br />
-            <label htmlFor='text-time'>Time:</label>
-            <input
-              type='number'
-              name='time'
-              id='text-time'
-              onChange={onChange}
-              value={task.time}
-            />
-            <br />
-            <span>Dependency IDs:</span>
-            <span>
-              {task.dependencies.map((dependency, i) => {
+            <span className='input-span'>Dependencies:</span>
+            <ul className='dependencies-ul'>
+              {task.dependencies.map((dependency, index) => {
+                console.log(dependency);
+                let taskTitle = "";
                 if (dependency !== null && typeof dependency === "object") {
-                  if (i === 0) {
-                    return dependency.id.toString();
-                  } else {
-                    return ", " + dependency.id.toString();
-                  }
+                  taskTitle = dependency.title;
                 } else {
-                  if (i === 0) {
-                    return dependency.toString();
-                  } else {
-                    return ", " + dependency.toString();
-                  }
+                  taskTitle =
+                    tasks.find(tsk => tsk.id === dependency).title || "";
                 }
+                return (
+                  <li key={index}>
+                    {taskTitle.toString().length > 15
+                      ? taskTitle.toString().substr(0, 15) + "..."
+                      : taskTitle.toString()}
+                  </li>
+                );
               })}
-            </span>
-            <div className='btn btn-primary' onClick={onEnableEditDependency}>
+            </ul>
+            <div
+              className='btn btn-primary edit-dependencies-button'
+              onClick={onEnableEditDependency}
+            >
               Edit Dependencies
             </div>
             <br />
-            <div className='btn btn-success' onClick={onSave}>
-              Save
-            </div>
-            <div className='btn btn-dark' onClick={onCancel}>
-              Cancel
-            </div>
-            <div className='btn btn-danger' onClick={onDelete}>
-              Delete
+            <div className='button-wrapper'>
+              <div className='btn btn-success' onClick={onSave}>
+                Save
+              </div>
+              <div className='btn btn-dark' onClick={onCancel}>
+                Cancel
+              </div>
+              <div className='btn btn-danger' onClick={onDelete}>
+                Delete
+              </div>
             </div>
           </div>
         </div>
