@@ -49,8 +49,8 @@ function App() {
   useEffect(() => {
     auth.onAuthStateChanged(user => {
       if (user) {
-        listenToUserBoards(user);
         setAuthUser(user);
+        listenToUserBoards(user);
       } else {
         setAuthUser(null);
         setTasks([]);
@@ -368,7 +368,34 @@ function App() {
   const onLogin = async (email, password) => {
     try {
       const cred = await auth.signInWithEmailAndPassword(email, password);
-    } catch (error) {}
+      if (boards.length > 0) {
+        let addBoard = [];
+        addBoard = boards.map(board => {
+          let boardRef = db
+            .collection("users")
+            .doc(cred.user.uid)
+            .collection("boards")
+            .doc();
+          board.uid = boardRef.id;
+          let ref = db
+            .collection("users")
+            .doc(cred.user.uid)
+            .collection("boards")
+            .doc(board.uid);
+          return ref.set({
+            lastUpdate: Date.now(),
+            uid: board.uid,
+            title: board.title,
+            description: board.description,
+            tasks: board.tasks
+          });
+        });
+        await Promise.all(addBoard);
+        console.log("update");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const closeLoginModal = () => {
@@ -380,7 +407,36 @@ function App() {
   };
 
   const onSignUp = async (email, password) => {
-    await auth.createUserWithEmailAndPassword(email, password);
+    try {
+      const cred = await auth.createUserWithEmailAndPassword(email, password);
+      if (boards.length > 0) {
+        let addBoard = [];
+        addBoard = boards.map(board => {
+          let boardRef = db
+            .collection("users")
+            .doc(cred.user.uid)
+            .collection("boards")
+            .doc();
+          board.uid = boardRef.id;
+          let ref = db
+            .collection("users")
+            .doc(cred.user.uid)
+            .collection("boards")
+            .doc(board.uid);
+          return ref.set({
+            lastUpdate: Date.now(),
+            uid: board.uid,
+            title: board.title,
+            description: board.description,
+            tasks: board.tasks
+          });
+        });
+        await Promise.all(addBoard);
+        console.log("update");
+      }
+    } catch (error) {
+      console.log(error);
+    }
     setSignUpModalOpen(false);
   };
 
