@@ -32,8 +32,20 @@ const BoardsMenu = ({
             className={`boards-element ${bSelected && "selected"}`}
             onClick={onSelectBoard.bind(this, board)}
           >
-            <h3>{board.title ? board.title : "no-title"}</h3>
-            <p>{board.description ? board.description : "no-description"}</p>
+            <h3>
+              {board.title
+                ? board.title.toString().length > 20
+                  ? board.title.toString().substr(0, 20) + "..."
+                  : board.title.toString()
+                : "no-title"}
+            </h3>
+            <p>
+              {board.description
+                ? board.description.toString().length > 150
+                  ? board.description.toString().substr(0, 150) + "..."
+                  : board.description.toString()
+                : "no-description"}
+            </p>
           </div>
         );
       })}
