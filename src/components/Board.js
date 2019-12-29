@@ -67,7 +67,7 @@ const Board = ({
       const bHasDependencies = task.dependencies.length > 0;
       const sDependencyColor = `background-color${nDependencyColor}`;
       if (task.dependencies.length > 0) {
-        nDependencyColor = ((nDependencyColor + 1) % 20) + 1;
+        nDependencyColor = ((nDependencyColor + 1) % 101) + 1;
       }
       Object.assign(dependenciesObj, {
         [task.id]: {

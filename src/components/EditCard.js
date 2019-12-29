@@ -223,8 +223,10 @@ const EditCard = ({
                 if (dependency !== null && typeof dependency === "object") {
                   taskTitle = dependency.title;
                 } else {
-                  taskTitle =
-                    tasks.find(tsk => tsk.id === dependency).title || "";
+                  const aux = tasks.find(tsk => tsk.id === dependency);
+                  if (aux) {
+                    taskTitle = aux.title;
+                  }
                 }
                 return (
                   <li key={index}>

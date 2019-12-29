@@ -773,6 +773,1011 @@ body div {
 .background-color19 {
   background-color: #fabebe !important;
 }
+.background-color20 {
+  background-color: #333 !important;
+}
+.background-color21 {
+  background-color: var(--primary-color) !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color22 {
+  background-color: #800000 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color23 {
+  background-color: #808000 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color24 {
+  background-color: #469990 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color25 {
+  background-color: #ffd8b1 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color26 {
+  background-color: #9a6324 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color27 {
+  background-color: #000075 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color28 {
+  background-color: #e6194b !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color29 {
+  background-color: #ffe119 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color30 {
+  background-color: #3cb44b !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color31 {
+  background-color: #911eb4 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color32 {
+  background-color: #a9a9a9 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color33 {
+  background-color: #f58231 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color34 {
+  background-color: #bfef45 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color35 {
+  background-color: #42d4f4 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color36 {
+  background-color: #f032e6 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color37 {
+  background-color: #fffac8 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color38 {
+  background-color: #aaffc3 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color39 {
+  background-color: #fabebe !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color40 {
+  background-color: #333 !important;
+  background-image: linear-gradient(
+    to bottom left,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+
+.background-color41 {
+  background-color: var(--primary-color) !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color42 {
+  background-color: #800000 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color43 {
+  background-color: #808000 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color44 {
+  background-color: #469990 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color45 {
+  background-color: #ffd8b1 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color46 {
+  background-color: #9a6324 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color47 {
+  background-color: #000075 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color48 {
+  background-color: #e6194b !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color49 {
+  background-color: #ffe119 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color50 {
+  background-color: #3cb44b !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color51 {
+  background-color: #911eb4 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color52 {
+  background-color: #a9a9a9 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color53 {
+  background-color: #f58231 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color54 {
+  background-color: #bfef45 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color55 {
+  background-color: #42d4f4 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color56 {
+  background-color: #f032e6 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color57 {
+  background-color: #fffac8 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color58 {
+  background-color: #aaffc3 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color59 {
+  background-color: #fabebe !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color60 {
+  background-color: #333 !important;
+  background-image: linear-gradient(
+      135deg,
+      hsla(0, 0%, 100%, 0.5) 25%,
+      transparent 0
+    ),
+    linear-gradient(225deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(315deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0),
+    linear-gradient(45deg, hsla(0, 0%, 100%, 0.5) 25%, transparent 0);
+  background-size: 12px 12px;
+}
+.background-color61 {
+  background-color: var(--primary-color) !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color62 {
+  background-color: #800000 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color63 {
+  background-color: #808000 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color64 {
+  background-color: #469990 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color65 {
+  background-color: #ffd8b1 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color66 {
+  background-color: #9a6324 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color67 {
+  background-color: #000075 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color68 {
+  background-color: #e6194b !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color69 {
+  background-color: #ffe119 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color60 {
+  background-color: #3cb44b !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color71 {
+  background-color: #911eb4 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color72 {
+  background-color: #a9a9a9 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color73 {
+  background-color: #f58231 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color74 {
+  background-color: #bfef45 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color75 {
+  background-color: #42d4f4 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color76 {
+  background-color: #f032e6 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color77 {
+  background-color: #fffac8 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color78 {
+  background-color: #aaffc3 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color79 {
+  background-color: #fabebe !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+.background-color80 {
+  background-color: #333 !important;
+  background-image: linear-gradient(
+    90deg,
+    hsla(0, 0%, 100%, 0.5) 50%,
+    transparent 0,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+
+.background-color81 {
+  background-color: var(--primary-color) !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color82 {
+  background-color: #800000 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color83 {
+  background-color: #808000 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color84 {
+  background-color: #469990 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color85 {
+  background-color: #ffd8b1 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color86 {
+  background-color: #9a6324 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color87 {
+  background-color: #000075 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color88 {
+  background-color: #e6194b !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color89 {
+  background-color: #ffe119 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color90 {
+  background-color: #3cb44b !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color91 {
+  background-color: #911eb4 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color92 {
+  background-color: #a9a9a9 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color93 {
+  background-color: #f58231 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color94 {
+  background-color: #bfef45 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color95 {
+  background-color: #42d4f4 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color96 {
+  background-color: #f032e6 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color97 {
+  background-color: #fffac8 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color98 {
+  background-color: #aaffc3 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color99 {
+  background-color: #fabebe !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
+.background-color100 {
+  background-color: #333 !important;
+  background-image: linear-gradient(
+    to bottom right,
+    hsla(0, 0%, 100%, 0.5) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.5) 0,
+    hsla(0, 0%, 100%, 0.5) 75%,
+    transparent 0,
+    transparent
+  );
+  background-size: 16px 16px;
+}
 
 .modal {
   position: fixed;
