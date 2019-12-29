@@ -12,7 +12,6 @@ const Navbar = ({ openLoginModal, openSignUpModal, onLogOut, authUser }) => {
                 <a className='button' onClick={onLogOut}>
                   Logout
                 </a>
-                <a href=''>Account</a>
               </Fragment>
             ) : (
               <Fragment>

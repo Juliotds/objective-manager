@@ -542,6 +542,7 @@ body div {
 .boards-menu {
   color: #333;
   overflow-x: scroll;
+  margin-bottom: 2rem;
 }
 
 .description {
