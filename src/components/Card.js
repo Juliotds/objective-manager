@@ -18,7 +18,6 @@ const Card = ({
   onNotHover = false
 }) => {
   const showAsDependency = e => {
-    console.log("indo");
     if (highlight) {
       onRemoveDependency.bind(null, task.id)();
     } else {
@@ -31,7 +30,7 @@ const Card = ({
         <div
           className={`card ${onHover && "active"} ${onNotHover && "inactive"}`}
           id={task.id}
-          onClick={editModal.bind(null, task)}
+          onClick={editModal.bind(null, task, dependenciesObj.dependents)}
           onMouseEnter={showDependencies.bind(this, task)}
           onMouseLeave={hideDependencies}
         >

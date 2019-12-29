@@ -39,6 +39,7 @@ function App() {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
   const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+  const [warningMessage, setWarningMessage] = useState("");
   const [isEditBoardModalOpen, setIsEditBoardModalOpen] = useState(false);
 
   // read data from database
@@ -97,14 +98,19 @@ function App() {
       });
   };
 
-  const editModal = (objTask, e) => {
+  const editModal = (objTask, dependents, e) => {
     e.preventDefault();
     setOpen(true);
+    objTask.dependents = dependents.length > 0;
     setSelectedTask(JSON.parse(JSON.stringify(objTask)));
   };
 
   const openModal = e => {
-    setOpen(true);
+    if (selectedBoard.title !== "" || selectedBoard.description !== "") {
+      setOpen(true);
+    } else {
+      openWarningModal("Create a board before creating tasks");
+    }
   };
   function closeModal(bResetSelectedTask) {
     setOpen(false);
@@ -196,14 +202,10 @@ function App() {
           });
         listenToUserBoards(authUser);
       } else {
-        let newArray = [];
-        if (tasksObj.length > 0) {
-          newArray = [...tasksObj];
-        }
         let boardsArray = boards.filter(
           board =>
             Object.keys(board).filter(key => selectedBoard[key] !== board[key])
-              .length > 0
+              .length >= 2
         );
         let newBoard = { ...selectedBoard, tasks: tasksObj };
         boardsArray.push(newBoard);
@@ -242,6 +244,7 @@ function App() {
         if (tasks.length > 0) {
           newArray = [...tasks];
         }
+        newArray.push(obj);
         let tasksObj = {};
         for (let i = 0; i < newArray.length; i++) {
           Object.assign(tasksObj, { [newArray[i].id]: newArray[i] });
@@ -249,7 +252,7 @@ function App() {
         let boardsArray = boards.filter(
           board =>
             Object.keys(board).filter(key => selectedBoard[key] !== board[key])
-              .length > 0
+              .length >= 2
         );
         let newBoard = { ...selectedBoard, tasks: tasksObj };
         boardsArray.push(newBoard);
@@ -390,12 +393,14 @@ function App() {
     setLoginModalOpen(false);
   };
 
-  const openWarningModal = () => {
+  const openWarningModal = message => {
     setIsWarningModalOpen(true);
+    setWarningMessage(message);
   };
 
   const closeWarningModal = () => {
     setIsWarningModalOpen(false);
+    setWarningMessage("");
   };
 
   const selectBoard = uid => {
@@ -618,6 +623,7 @@ function App() {
       </SignUpModal>
       <WarningModal>
         <Warning
+          warningMessage={warningMessage}
           isWarningModalOpen={isWarningModalOpen}
           closeWarningModal={closeWarningModal}
         />

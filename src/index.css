@@ -624,6 +624,11 @@ code {
   outline: none;
 }
 
+.btn.inactive {
+  cursor: default !important;
+  background-color: #999999;
+}
+
 .btn-board {
   display: flex;
   align-items: center;

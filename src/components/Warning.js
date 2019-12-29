@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-const LoginForm = ({ isWarningModalOpen, closeWarningModal }) => {
+const LoginForm = ({
+  warningMessage = "",
+  isWarningModalOpen,
+  closeWarningModal
+}) => {
   const onCloseModal = () => {
     closeWarningModal();
   };
@@ -15,7 +19,7 @@ const LoginForm = ({ isWarningModalOpen, closeWarningModal }) => {
               e.stopPropagation();
             }}
           >
-            <h3>Login is required to do this action</h3>
+            <h3>{warningMessage}</h3>
           </div>
         </div>
       )}

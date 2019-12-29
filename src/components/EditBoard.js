@@ -27,9 +27,10 @@ const EditBoard = ({
     if (name === "title") {
       bValid = value !== "";
       setValidTitle(bValid);
+    } else {
+      const bValidForm = validTitle;
+      return bValidForm;
     }
-    const bValidForm = validTitle;
-    return bValidForm;
   };
   const onSave = async e => {
     if (onFormValidation()) {
@@ -76,12 +77,7 @@ const EditBoard = ({
   };
 
   useEffect(() => {
-    if (
-      !(
-        Object.keys(boardToEdit).length === 0 &&
-        boardToEdit.constructor === Object
-      )
-    ) {
+    if (!(boardToEdit.title === "" && boardToEdit.description === "")) {
       if (isEditBoardModalOpen) {
         setBoard({ ...boardToEdit });
         setValidTitle(true);
@@ -111,6 +107,9 @@ const EditBoard = ({
               onChange={onTextChange}
               value={board.title || ""}
             />
+            <label className='input-span' htmlFor='text-title'>
+              *required
+            </label>
             <br />
             <label htmlFor='text-description'>Description: </label>
             <textarea

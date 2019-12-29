@@ -12,10 +12,7 @@ const Menu = ({
 }) => {
   const onEditButton = () => {
     if (authUser === null) {
-      openWarningModal({
-        title: "",
-        description: ""
-      });
+      openWarningModal("You must login to do this action");
     } else {
       openEditBoardModal(selectedBoard);
     }

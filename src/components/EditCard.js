@@ -81,22 +81,24 @@ const EditCard = ({
   };
 
   const onDelete = async e => {
-    await onDeleteTask(task);
+    if (!task.dependents) {
+      await onDeleteTask(task);
 
-    setTask({
-      title: "",
-      content: "",
-      priority: 0,
-      time: 0,
-      dependencies: []
-    });
-    setValidTitle(false);
-    setValidContent(false);
-    setValidPriority(false);
-    setValidTime(false);
-    onEditDependency(false);
+      setTask({
+        title: "",
+        content: "",
+        priority: 0,
+        time: 0,
+        dependencies: []
+      });
+      setValidTitle(false);
+      setValidContent(false);
+      setValidPriority(false);
+      setValidTime(false);
+      onEditDependency(false);
 
-    closeModal(true);
+      closeModal(true);
+    }
   };
   const onCancel = e => {
     onEditDependency(false);
@@ -217,7 +219,6 @@ const EditCard = ({
             <span className='input-span'>Dependencies:</span>
             <ul className='dependencies-ul'>
               {task.dependencies.map((dependency, index) => {
-                console.log(dependency);
                 let taskTitle = "";
                 if (dependency !== null && typeof dependency === "object") {
                   taskTitle = dependency.title;
@@ -248,7 +249,10 @@ const EditCard = ({
               <div className='btn btn-dark' onClick={onCancel}>
                 Cancel
               </div>
-              <div className='btn btn-danger' onClick={onDelete}>
+              <div
+                className={`btn btn-danger ${task.dependents && "inactive"}`}
+                onClick={onDelete}
+              >
                 Delete
               </div>
             </div>

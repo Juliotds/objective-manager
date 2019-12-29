@@ -37,7 +37,7 @@ const Board = ({
       taskColumn.push(
         tasksWithReference.filter(task => {
           if (i > 0) {
-            return getMaxDepth(task.id, tasksCopy) - 1 === i;
+            return getMaxDepth(0, task.id, tasksCopy) - 1 === i;
           } else {
             return task.dependencies.length === 0;
           }
@@ -131,8 +131,8 @@ const Board = ({
   );
 };
 
-const getMaxDepth = (taskId, tasks) => {
-  let n = 1;
+const getMaxDepth = (n, taskId, tasks) => {
+  n = n + 1;
   let taskObj = tasks.find(task => task.id === taskId);
 
   let taskList = [];
@@ -145,11 +145,16 @@ const getMaxDepth = (taskId, tasks) => {
       }
     });
   }
+  let maxN = n;
+  let aux = 0;
   for (let i = 0; i < taskList.length; i++) {
-    n = 1;
-    n = n + getMaxDepth(taskList[i], tasks);
+    aux = 0;
+    aux = getMaxDepth(n, taskList[i], tasks);
+    if (maxN < aux) {
+      maxN = aux;
+    }
   }
-  return n;
+  return maxN;
 };
 
 export default Board;
